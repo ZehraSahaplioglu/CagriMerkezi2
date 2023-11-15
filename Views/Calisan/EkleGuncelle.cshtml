@@ -1,0 +1,125 @@
+﻿@model Calisan
+
+<form method="post">
+
+    <div class="row">
+
+        <div class="col-10">
+
+            <div class="border p-3 mt-5">
+
+                <div class="row pb-3">
+
+                    <h2 class="text-primary">@(Model == null ? "Çalışan Ekle" : "Çalışan Güncelle")</h2>
+                    <hr />
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Ad" class="p-0">İsim</label>
+                    <input asp-for="Ad" class="form-control" />
+                    <span asp-validation-for="Ad" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Soyad" class="p-0">Soyisim</label>
+                    <input asp-for="Soyad" class="form-control" />
+                    <span asp-validation-for="Soyad" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="TC" class="p-0" >TC</label>
+                    <input asp-for="TC" class="form-control" placeholder="12345678901" />
+                    <span asp-validation-for="TC" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Adres" class="p-0">Adres</label>
+                    <input asp-for="Adres" class="form-control" />
+                    <span asp-validation-for="Adres" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Mail" class="p-0" >Mail</label>
+                    <input asp-for="Mail" class="form-control" placeholder="name@example.com" />
+                    <span asp-validation-for="Mail" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="TelNo" class="p-0" >TEL no</label>
+                    <input asp-for="TelNo" class="form-control" placeholder="1234567898" />
+                    <span asp-validation-for="TelNo" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="BirimId" class="p-0">Sorumlu Birim:</label>
+                    <select asp-for="BirimId" asp-items="ViewBag.BirimCalisanList" class="form-select">
+                        <option value="">Seçiniz:</option></select>
+
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DepId">Departman:</label>
+                    <select id="DepId" asp-items="ViewBag.DepCalisanList" class="form-control">
+                        <option value="">Seçiniz:</option>
+                    </select>
+                </div>
+
+                <script>
+                    $(document).ready(function () {
+                        $("#BirimId").change(function () {
+                            var selectedBirimId = $(this).val();
+
+                            // AJAX isteği ile departmanları getir
+                            $.ajax({
+                                url: '/CalisanController/GetDepartmentsByBirimId',
+                                type: 'GET',
+                                data: { birimId: selectedBirimId },
+                                success: function (data) {
+                                    // Departmanları güncelle
+                                    $("#DepId").empty();
+                                    $("#DepId").append('<option value="">Seçiniz</option>');
+                                    $.each(data, function (i, item) {
+                                        $("#DepId").append('<option value="' + item.value + '">' + item.text + '</option>');
+                                    });
+                                },
+                                error: function () {
+                                    console.log('Departmanları getirme hatası');
+                                }
+                            });
+                        });
+                    });
+                </script>
+
+                
+                @if (Model != null)
+                {
+                    <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Güncelle</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Ekle</button>
+                }
+
+                <a asp-controller="Calisan" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">Geri Dön</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>

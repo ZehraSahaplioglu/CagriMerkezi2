@@ -1,0 +1,70 @@
+﻿@model List<Departman>
+
+<div class="container">
+
+    <div class="row pt-3 pb-4">
+
+        <div>
+
+            <h1>Departman Sayfası</h1>
+            <hr />
+
+        </div>
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>Id</th>
+                <th>Departman Adı</th>
+                <th>Birim Adı</th>
+                <th> </th>
+                <th> </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach(var departman in Model)
+            {
+                <tr>
+
+                    <td>@departman.Id</td>
+                    <td>@departman.Ad</td>
+                    <td>@departman.Birim.Ad</td>
+
+                    <td>
+                        <a asp-controller="Departman" asp-action="EkleGuncelle" asp-route-id="@departman.Id" type="button" 
+                            class="btn btn-success" style="width:250px">Güncelle</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Departman" asp-action="Sil" asp-route-id="@departman.Id" type="button"
+                           class="btn btn-success" style="width:250px">Sil</a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+    <div class="row pt-3 pb-2">
+
+        <div>
+
+            <a asp-controller="Departman" asp-action="EkleGuncelle" class="btn btn-success" type="button">Departman Ekle</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
