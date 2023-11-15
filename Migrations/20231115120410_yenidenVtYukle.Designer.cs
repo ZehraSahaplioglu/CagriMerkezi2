@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CagriMerkezi2.Migrations
 {
     [DbContext(typeof(UygulamaDbContext))]
-    [Migration("20231114062858_identityTabloEkleme")]
-    partial class identityTabloEkleme
+    [Migration("20231115120410_yenidenVtYukle")]
+    partial class yenidenVtYukle
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,11 +72,14 @@ namespace CagriMerkezi2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TC")
-                        .HasColumnType("int");
+                    b.Property<string>("TC")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
-                    b.Property<int>("TelNo")
-                        .HasColumnType("int");
+                    b.Property<string>("TelNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -143,11 +146,14 @@ namespace CagriMerkezi2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TC")
-                        .HasColumnType("int");
+                    b.Property<string>("TC")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
-                    b.Property<int>("TelNo")
-                        .HasColumnType("int");
+                    b.Property<string>("TelNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

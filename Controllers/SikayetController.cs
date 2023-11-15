@@ -39,7 +39,7 @@ namespace CagriMerkezi2.Controllers
             return View(objSikayetList);
         }
 
-        public IActionResult EkleGuncelle(int? id)
+        public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {
             IEnumerable<SelectListItem> BirimSikayetList = _birimRepository.GetAll().Select(b => new SelectListItem
             {
@@ -48,12 +48,27 @@ namespace CagriMerkezi2.Controllers
             });
             ViewBag.BirimSikayetList = BirimSikayetList;
 
-            IEnumerable<SelectListItem> DepSikayetList = _departmanRepository.GetAll().Select(d => new SelectListItem
+            // Seçilen birim ID'sini kullanarak sadece o birime ait departmanları al
+            if (selectedBirimId.HasValue)
             {
-                Text = d.Ad,
-                Value = d.Id.ToString()
-            });
-            ViewBag.DepSikayetList = DepSikayetList;
+                ViewBag.DepSikayetList = _departmanRepository
+                    .GetDepartmentsByBirimId(selectedBirimId.Value)
+                    .Select(d => new SelectListItem
+                    {
+                        Text = d.Ad,
+                        Value = d.Id.ToString()
+                    });
+            }
+            else
+            {
+                // Eğer bir birim seçilmemişse, tüm departmanları getir
+                IEnumerable<SelectListItem> DepSikayetList = _departmanRepository.GetAll().Select(d => new SelectListItem
+                {
+                    Text = d.Ad,
+                    Value = d.Id.ToString()
+                });
+                ViewBag.DepSikayetList = DepSikayetList;
+            }
 
             if (id == null || id == 0)
             {
@@ -61,14 +76,27 @@ namespace CagriMerkezi2.Controllers
             }
             else
             {
-                Sikayet? sikayetVt = _sikayetRepository.Get(u  => u.Id == id);
-                if(sikayetVt == null)
+                Sikayet? sikayetVt = _sikayetRepository.Get(u => u.Id == id);
+                if (sikayetVt == null)
                 {
                     return NotFound();
                 }
-                
+
                 return View(sikayetVt);
             }
+        }
+
+        [HttpGet]
+        public IActionResult GetDepartmentsByBirimId(int birimId)
+        {
+            var depSikayetList = _departmanRepository.GetDepartmentsByBirimId(birimId)
+                .Select(d => new SelectListItem
+                {
+                    Text = d.Ad,
+                    Value = d.Id.ToString()
+                });
+
+            return Json(depSikayetList);
         }
 
         [HttpPost]

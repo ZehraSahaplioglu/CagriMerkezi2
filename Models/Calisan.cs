@@ -15,8 +15,9 @@ namespace CagriMerkezi2.Models
         [Required]
         public string Soyad { get; set; }
 
-        [Required]
-        public int TC { get; set; }
+        [Required(ErrorMessage = "TC Kimlik Numarası boş bırakılamaz.")]
+        [StringLength(11, MinimumLength = 11, ErrorMessage = "Geçerli bir TC Kimlik Numarası giriniz.")]
+        public string TC { get; set; }
 
         [Required]
         public string Adres { get; set; }
@@ -24,8 +25,9 @@ namespace CagriMerkezi2.Models
         [Required]
         public string Mail { get; set; }
 
-        [Required]
-        public int TelNo { get; set; }
+        [Required(ErrorMessage = "Telefon numarası boş bırakılamaz.")]
+        [RegularExpression(@"^\d{11}$", ErrorMessage = "Geçerli bir 11 haneli telefon numarası giriniz.")]
+        public string TelNo { get; set; }
 
         public int BirimId { get; set; }
         public Birim Birim { get; set; }

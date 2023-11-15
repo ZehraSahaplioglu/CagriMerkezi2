@@ -5,7 +5,7 @@ namespace CagriMerkezi2.Models
 {
     public interface IDepartmanRepository : IRepository<Departman>
     {
-        IEnumerable<Departman> GetDepartmentsByBirim(int value);
+        IEnumerable<Departman> GetDepartmentsByBirimId(int birimId);
         void Guncelle(Departman departman);
 
         void Kaydet();

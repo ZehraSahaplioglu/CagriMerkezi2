@@ -16,14 +16,16 @@ namespace CagriMerkezi2.Models
         [Required]
         public string Soyad { get; set; }
 
-        [Required]
-        public int TC { get; set; }
+        [Required(ErrorMessage = "TC Kimlik Numarası boş bırakılamaz.")]
+        [StringLength(11, MinimumLength = 11, ErrorMessage = "Geçerli bir TC Kimlik Numarası giriniz.")]
+        public string TC { get; set; }
 
         [Required]
         public string Adres { get; set; }
 
-        [Required]
-        public int TelNo { get; set; }
+        [Required(ErrorMessage = "Telefon numarası boş bırakılamaz.")]
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
+        public string TelNo { get; set; }
 
         [Required]
         public string Aciklama { get; set; }

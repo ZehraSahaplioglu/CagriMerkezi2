@@ -51,7 +51,7 @@ namespace CagriMerkezi2.Controllers
             if (selectedBirimId.HasValue)
             {
                 ViewBag.DepCalisanList = _departmanRepository
-                    .GetDepartmentsByBirim(selectedBirimId.Value)
+                    .GetDepartmentsByBirimId(selectedBirimId.Value)
                     .Select(d => new SelectListItem
                     {
                         Text = d.Ad,
@@ -84,6 +84,20 @@ namespace CagriMerkezi2.Controllers
                 return View(calisanVt);
             }
         }
+
+        [HttpGet]
+        public IActionResult GetDepartmentsByBirimId(int birimId)
+        {
+            var depCalisanList = _departmanRepository.GetDepartmentsByBirimId(birimId)
+                .Select(d => new SelectListItem
+                {
+                    Text = d.Ad,
+                    Value = d.Id.ToString()
+                });
+
+            return Json(depCalisanList);
+        }
+
 
 
         [HttpPost]

@@ -13,9 +13,11 @@ namespace CagriMerkezi2.Models
             _uygulamaDbContext = uygulamaDbContext;
         }
 
-        public IEnumerable<Departman> GetDepartmentsByBirim(int value)
+        public IEnumerable<Departman> GetDepartmentsByBirimId(int birimId)
         {
-            throw new NotImplementedException();
+            return _uygulamaDbContext.Departmanlar
+                .Where(d => d.BirimId == birimId)
+                .ToList();
         }
 
         public void Guncelle(Departman departman)

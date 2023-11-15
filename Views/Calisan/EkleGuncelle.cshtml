@@ -2,6 +2,8 @@
 
 <form method="post">
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <div class="row">
 
         <div class="col-10">
@@ -12,7 +14,7 @@
 
                     <h2 class="text-primary">@(Model == null ? "Çalışan Ekle" : "Çalışan Güncelle")</h2>
                     <hr />
-
+                   
                 </div>
 
                 <div class="mb-3">
@@ -64,16 +66,15 @@
                 </div>
 
                 <div class="mb-3">
-
                     <label asp-for="BirimId" class="p-0">Sorumlu Birim:</label>
-                    <select asp-for="BirimId" asp-items="ViewBag.BirimCalisanList" class="form-select">
-                        <option value="">Seçiniz:</option></select>
-
+                    <select id="BirimId" name="BirimId" asp-items="ViewBag.BirimCalisanList" class="form-select">
+                        <option value="">Seçiniz:</option>
+                    </select>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="DepId">Departman:</label>
-                    <select id="DepId" asp-items="ViewBag.DepCalisanList" class="form-control">
+                    <select id="DepId" name="DepId" class="form-control">
                         <option value="">Seçiniz:</option>
                     </select>
                 </div>
@@ -85,7 +86,7 @@
 
                             // AJAX isteği ile departmanları getir
                             $.ajax({
-                                url: '/CalisanController/GetDepartmentsByBirimId',
+                                url: '/Calisan/GetDepartmentsByBirimId',
                                 type: 'GET',
                                 data: { birimId: selectedBirimId },
                                 success: function (data) {

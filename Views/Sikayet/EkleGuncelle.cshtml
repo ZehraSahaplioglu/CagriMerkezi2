@@ -2,6 +2,8 @@
 
 <form method="post" enctype="multipart/form-data">
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <input asp-for="ResimUrl" hidden />
 
     <div class="row">
@@ -66,22 +68,44 @@
                 </div>
 
                 <div class="mb-3">
-
-                    <label asp-for="BirimId" class="p-0">Sorumlu Birim</label>
-                    <select asp-for="BirimId" asp-items="ViewBag.BirimSikayetList" class="form-select">
+                    <label asp-for="BirimId" class="p-0">Sorumlu Birim:</label>
+                    <select id="BirimId" name="BirimId" asp-items="ViewBag.BirimSikayetList" class="form-select">
                         <option value="">Seçiniz:</option>
                     </select>
-
                 </div>
 
                 <div class="mb-3">
-
-                    <label asp-for="DepId" class="p-0">Sorumlu Departman</label>
-                    <select asp-for="DepId" asp-items="ViewBag.DepSikayetList" class="form-select">
+                    <label asp-for="DepId">Departman:</label>
+                    <select id="DepId" name="DepId" class="form-control">
                         <option value="">Seçiniz:</option>
                     </select>
-
                 </div>
+
+                <script>
+                    $(document).ready(function () {
+                        $("#BirimId").change(function () {
+                            var selectedBirimId = $(this).val();
+
+                            // AJAX isteği ile departmanları getir
+                            $.ajax({
+                                url: '/Sikayet/GetDepartmentsByBirimId',
+                                type: 'GET',
+                                data: { birimId: selectedBirimId },
+                                success: function (data) {
+                                    // Departmanları güncelle
+                                    $("#DepId").empty();
+                                    $("#DepId").append('<option value="">Seçiniz</option>');
+                                    $.each(data, function (i, item) {
+                                        $("#DepId").append('<option value="' + item.value + '">' + item.text + '</option>');
+                                    });
+                                },
+                                error: function () {
+                                    console.log('Departmanları getirme hatası');
+                                }
+                            });
+                        });
+                    });
+                </script>
 
                 <div class="mb-3">
 
