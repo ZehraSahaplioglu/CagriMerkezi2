@@ -18,6 +18,11 @@ namespace CagriMerkezi2.Controllers
             return View();
         }
 
+        public IActionResult Yonlendirme()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

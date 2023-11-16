@@ -39,6 +39,8 @@ namespace CagriMerkezi2.Controllers
             return View(objSikayetList);
         }
 
+        
+
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {
             IEnumerable<SelectListItem> BirimSikayetList = _birimRepository.GetAll().Select(b => new SelectListItem

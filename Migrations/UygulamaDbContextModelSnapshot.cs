@@ -76,7 +76,8 @@ namespace CagriMerkezi2.Migrations
 
                     b.Property<string>("TelNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.HasKey("Id");
 
@@ -150,7 +151,8 @@ namespace CagriMerkezi2.Migrations
 
                     b.Property<string>("TelNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.HasKey("Id");
 

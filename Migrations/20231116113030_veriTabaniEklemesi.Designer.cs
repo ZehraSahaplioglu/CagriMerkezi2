@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CagriMerkezi2.Migrations
 {
     [DbContext(typeof(UygulamaDbContext))]
-    [Migration("20231115120410_yenidenVtYukle")]
-    partial class yenidenVtYukle
+    [Migration("20231116113030_veriTabaniEklemesi")]
+    partial class veriTabaniEklemesi
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,7 +79,8 @@ namespace CagriMerkezi2.Migrations
 
                     b.Property<string>("TelNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.HasKey("Id");
 
@@ -153,7 +154,8 @@ namespace CagriMerkezi2.Migrations
 
                     b.Property<string>("TelNo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(11)
+                        .HasColumnType("nvarchar(11)");
 
                     b.HasKey("Id");
 

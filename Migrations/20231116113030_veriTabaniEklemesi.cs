@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CagriMerkezi2.Migrations
 {
     /// <inheritdoc />
-    public partial class yenidenVtYukle : Migration
+    public partial class veriTabaniEklemesi : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -203,7 +203,7 @@ namespace CagriMerkezi2.Migrations
                     TC = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     Adres = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TelNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TelNo = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     BirimId = table.Column<int>(type: "int", nullable: false),
                     DepId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -234,7 +234,7 @@ namespace CagriMerkezi2.Migrations
                     Soyad = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TC = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     Adres = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TelNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TelNo = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     Aciklama = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ResimUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BirimId = table.Column<int>(type: "int", nullable: false),

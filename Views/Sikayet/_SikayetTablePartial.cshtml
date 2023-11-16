@@ -1,0 +1,68 @@
+﻿@model List<Sikayet>
+
+<table id="sikayetTable" class="table table-bordered">
+
+    <thead>
+
+        <tr>
+            <th> </th>
+            <th>Id</th>
+            <th>Ad</th>
+            <th>Soyad</th>
+            <th>TC</th>
+            <th>Adres</th>
+            <th>Tel No</th>
+            <th>Açıklama</th>
+            <th>Sorumlu Birim</th>
+            <th>Sorumlu Departman</th>
+            <th> </th>
+            <th> </th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @foreach (var sikayet in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@sikayet.ResimUrl" style="border-radius: 7px; border 1px; solid #bbb9b9;
+                            max-width: 145px; max: 275px" />
+                </td>
+                <td>@sikayet.Id</td>
+                <td>@sikayet.Ad</td>
+                <td>@sikayet.Soyad</td>
+                <td>@sikayet.TC</td>
+                <td>@sikayet.Adres</td>
+                <td>@sikayet.TelNo</td>
+                <td>@sikayet.Aciklama</td>
+                <td>@sikayet.Birim.Ad</td>
+                <td>@sikayet.Departman.Ad</td>
+
+                <td>
+                    <a asp-controller="Sikayet" asp-action="EkleGuncelle" asp-route-id="@sikayet.Id" type="button"
+                       class="btn btn-success" style="width:250px">Güncelle</a>
+                </td>
+                <td>
+                    <a asp-controller="Sikayet" asp-action="Sil" asp-route-id="@sikayet.Id" type="button"
+                       class="btn btn-danger" style="width:250px">Sil</a>
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+<div class="row pt-3 pb-2">
+
+    <div>
+
+        <a asp-controller="Sikayet" asp-action="EkleGuncelle" class="btn btn-lg btn-primary" type="button">Sikayet Ekle</a>
+
+    </div>
+
+</div>

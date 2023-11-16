@@ -24,7 +24,7 @@ namespace CagriMerkezi2.Models
         public string Adres { get; set; }
 
         [Required(ErrorMessage = "Telefon numarası boş bırakılamaz.")]
-        [DataType(DataType.PhoneNumber, ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
+        [StringLength(11, MinimumLength =11, ErrorMessage = "Geçerli bir telefon numarası giriniz.")]
         public string TelNo { get; set; }
 
         [Required]
