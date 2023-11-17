@@ -30,5 +30,16 @@ namespace CagriMerkezi2.Models
             _uygulamaDbContext.SaveChanges();
         }
 
+        public List<Calisan> GetFilteredCalisanlar(int birimId)
+        {
+            // Veritabanından ilgili birime ait sikayetleri çek
+            var filteredCalisanlar = _uygulamaDbContext.Calisanlar
+                .Where(s => s.BirimId == birimId)
+                .ToList();
+
+            // Sonuçları döndür
+            return filteredCalisanlar;
+        }
+
     }
 }

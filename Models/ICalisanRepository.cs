@@ -2,6 +2,7 @@
 {
     public interface ICalisanRepository : IRepository<Calisan> 
     {
+        List<Calisan> GetFilteredCalisanlar(int birimId);
 
         void Guncelle(Calisan calisan);
 

@@ -1,5 +1,7 @@
 ﻿@model List<Sikayet>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <div class="container">
 
     <div class="row pt-3 pb-4">
@@ -13,7 +15,21 @@
 
     </div>
 
-
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label>Sorumlu Birim:</label>
+            <select id="selectedBirimId" class="form-select">
+                <option value="">Tümü</option>
+                @foreach (var birim in ViewBag.BrSikayetList as List<SelectListItem>)
+                {
+                    <option value="@birim.Value">@birim.Text</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button id="btnFilter" class="btn btn-primary">Filtrele</button>
+        </div>
+    </div>
 
     <table class="table table-bordered">
 
@@ -56,11 +72,11 @@
 
                     <td>
                         <a asp-controller="Sikayet" asp-action="EkleGuncelle" asp-route-id="@sikayet.Id" type="button"
-                           class="btn btn-success" style="width:250px">Güncelle</a>
+                           class="btn btn-success" style="width:200px">Güncelle</a>
                     </td>
                     <td>
                         <a asp-controller="Sikayet" asp-action="Sil" asp-route-id="@sikayet.Id" type="button"
-                           class="btn btn-danger" style="width:250px">Sil</a>
+                           class="btn btn-danger" style="width:200px">Sil</a>
                     </td>
 
                 </tr>
@@ -80,4 +96,25 @@
 
     </div>
 
+    <script>
+        $(document).ready(function () {
+            $("#btnFilter").on("click", function () {
+                var selectedBirimId = $("#selectedBirimId").val();
+
+                $.ajax({
+                    url: "/Sikayet/GetFilteredSikayetler",
+                    type: "GET",
+                    data: { birimId: selectedBirimId },
+                    success: function (result) {
+                        $(".table tbody").html(result);
+                    },
+                    error: function (error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
+
 </div>
+

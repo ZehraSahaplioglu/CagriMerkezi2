@@ -1,0 +1,43 @@
+﻿@model List<Calisan>
+
+<table class="table table-bordered">
+
+    <thead>
+
+        <tr>
+            
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @foreach (var calisan in Model)
+        {
+            <tr>
+                <td>@calisan.Id</td>
+                <td>@calisan.Ad</td>
+                <td>@calisan.Soyad</td>
+                <td>@calisan.TC</td>
+                <td>@calisan.Adres</td>
+                <td>@calisan.Mail</td>
+                <td>@calisan.TelNo</td>
+                <td>@calisan.Birim.Ad</td>
+                <td>@calisan.Departman.Ad</td>
+
+                <td>
+                    <a asp-controller="Calisan" asp-action="EkleGuncelle" asp-route-id="@calisan.Id" type="button"
+                       class="btn btn-success" style="width:250px">Güncelle</a>
+                </td>
+                <td>
+                    <a asp-controller="Calisan" asp-action="Sil" asp-route-id="@calisan.Id" type="button"
+                       class="btn btn-danger" style="width:250px">Sil</a>
+                </td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>

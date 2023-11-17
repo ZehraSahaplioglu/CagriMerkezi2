@@ -20,10 +20,35 @@ namespace CagriMerkezi2.Controllers
         
         public IActionResult Index()
         {
+            ViewBag.BrDepList = _birimRepository.GetAll()
+        .Select(b => new SelectListItem
+        {
+            Text = b.Ad,
+            Value = b.Id.ToString()
+        }).ToList();
+
             List<Departman> objDepartmanList = _departmanRepository.GetAll(includeProps:"Birim").ToList();
             return View(objDepartmanList);
         }
-        
+
+        [HttpGet]
+        public IActionResult GetFilteredDep(int birimId)
+        {
+            List<Departman> filteredDepList;
+
+            if (birimId > 0)
+            {
+                filteredDepList = _departmanRepository.GetFilteredDep(birimId);
+            }
+            else
+            {
+                filteredDepList = _departmanRepository.GetAll(includeProps: "Departman").ToList();
+            }
+
+            return PartialView("_DepartmanListPartial", filteredDepList);
+        }
+
+
 
         public IActionResult EkleGuncelle(int? id)
         {

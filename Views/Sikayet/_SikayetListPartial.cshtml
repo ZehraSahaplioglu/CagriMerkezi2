@@ -1,0 +1,45 @@
+﻿@model List<Sikayet>
+
+<table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+                
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var sikayet in Model)
+            {
+                <tr>
+                    <td><img src="@sikayet.ResimUrl" style="border-radius: 7px; border 1px; solid #bbb9b9; 
+                            max-width: 145px; max: 275px" /></td>
+                    <td>@sikayet.Id</td>
+                    <td>@sikayet.Ad</td>
+                    <td>@sikayet.Soyad</td>
+                    <td>@sikayet.TC</td>
+                    <td>@sikayet.Adres</td>
+                    <td>@sikayet.TelNo</td>
+                    <td>@sikayet.Aciklama</td>
+                    <td>@sikayet.Birim.Ad</td>
+                    <td>@sikayet.Departman.Ad</td>
+
+                    <td>
+                        <a asp-controller="Sikayet" asp-action="EkleGuncelle" asp-route-id="@sikayet.Id" type="button"
+                           class="btn btn-success" style="width:200px">Güncelle</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Sikayet" asp-action="Sil" asp-route-id="@sikayet.Id" type="button"
+                           class="btn btn-danger" style="width:200px">Sil</a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>

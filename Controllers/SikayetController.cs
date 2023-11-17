@@ -35,11 +35,35 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.BrSikayetList = _birimRepository.GetAll()
+        .Select(b => new SelectListItem
+        {
+            Text = b.Ad,
+            Value = b.Id.ToString()
+        }).ToList();
+
             List<Sikayet> objSikayetList = _sikayetRepository.GetAll(includeProps: "Departman").ToList();
             return View(objSikayetList);
         }
 
-        
+        [HttpGet]
+        public IActionResult GetFilteredSikayetler(int birimId)
+        {
+            List<Sikayet> filteredSikayetList;
+
+            if (birimId > 0)
+            {
+                filteredSikayetList = _sikayetRepository.GetFilteredSikayetler(birimId);
+            }
+            else
+            {
+                filteredSikayetList = _sikayetRepository.GetAll(includeProps: "Departman").ToList();
+            }
+
+            return PartialView("_SikayetListPartial", filteredSikayetList);
+        }
+
+
 
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {

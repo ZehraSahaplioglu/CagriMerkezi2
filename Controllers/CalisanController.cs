@@ -33,10 +33,33 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.BrCalisanList = _birimRepository.GetAll()
+        .Select(b => new SelectListItem
+        {
+            Text = b.Ad,
+            Value = b.Id.ToString()
+        }).ToList();
+
             List<Calisan> objCalisanList = _calisanRepository.GetAll(includeProps: "Departman").ToList();
             return View(objCalisanList);
         }
 
+        [HttpGet]
+        public IActionResult GetFilteredCalisanlar(int birimId)
+        {
+            List<Calisan> filteredCalisanList;
+
+            if (birimId > 0)
+            {
+                filteredCalisanList = _calisanRepository.GetFilteredCalisanlar(birimId);
+            }
+            else
+            {
+                filteredCalisanList = _calisanRepository.GetAll(includeProps: "Departman").ToList();
+            }
+
+            return PartialView("_CalisanListPartial", filteredCalisanList);
+        }
 
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {

@@ -1,5 +1,7 @@
 ﻿@model List<Calisan>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <div class="container">
 
     <div class="row pt-3 pb-4">
@@ -11,6 +13,22 @@
 
         </div>
 
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label>Sorumlu Birim:</label>
+            <select id="selectedBirimId" class="form-select">
+                <option value="">Tümü</option>
+                @foreach (var birim in ViewBag.BrCalisanList as List<SelectListItem>)
+                {
+                    <option value="@birim.Value">@birim.Text</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button id="btnCalisanFilter" class="btn btn-primary">Filtrele</button>
+        </div>
     </div>
 
     <table class="table table-bordered">
@@ -74,5 +92,25 @@
         </div>
 
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#btnCalisanFilter").on("click", function () {
+                var selectedBirimId = $("#selectedBirimId").val();
+
+                $.ajax({
+                    url: "/Calisan/GetFilteredCalisanlar",
+                    type: "GET",
+                    data: { birimId: selectedBirimId },
+                    success: function (result) {
+                        $(".table tbody").html(result);
+                    },
+                    error: function (error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
 
 </div>

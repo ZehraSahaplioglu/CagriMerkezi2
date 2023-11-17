@@ -12,6 +12,20 @@ namespace CagriMerkezi2.Models
             _uygulamaDbContext = uygulamaDbContext;
         }
 
+        public List<Sikayet> GetFilteredSikayetler(int birimId)
+        {
+            // Veritabanından ilgili birime ait sikayetleri çek
+            var filteredSikayetler = _uygulamaDbContext.Sikayetler
+                .Where(s => s.BirimId == birimId)
+                .ToList();
+
+            // Filtreleme işlemleri buraya eklenebilir
+            // Örneğin, başka bir koşula göre filtreleme yapılabilir
+
+            // Sonuçları döndür
+            return filteredSikayetler;
+        }
+
         public void Guncelle(Sikayet sikayet)
         {
             var existingEntity = _uygulamaDbContext.Sikayetler.Find(sikayet.Id);
