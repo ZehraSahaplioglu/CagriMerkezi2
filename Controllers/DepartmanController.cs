@@ -42,7 +42,7 @@ namespace CagriMerkezi2.Controllers
             }
             else
             {
-                filteredDepList = _departmanRepository.GetAll(includeProps: "Departman").ToList();
+                filteredDepList = _departmanRepository.GetAll(includeProps: "Birim").ToList();
             }
 
             return PartialView("_DepartmanListPartial", filteredDepList);
