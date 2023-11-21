@@ -19,5 +19,7 @@ namespace CagriMerkezi2.Models
         public ICollection<Sikayet> SikayetList { get; set;}
 
         public ICollection<Calisan> CalisanList { get; set; }
+
+        public ICollection<CagriMerkezi> CagriList { get; set; }
     }
 }

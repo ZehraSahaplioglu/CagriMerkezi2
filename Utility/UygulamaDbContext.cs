@@ -19,6 +19,8 @@ namespace CagriMerkezi2.Utility
 
         public DbSet<Calisan> Calisanlar { get; set; }
 
+        public DbSet<CagriMerkezi> CagriMerkezis { get; set; }
+
         public DbSet<UygKullancisi> UygKullanicilari { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -52,6 +54,17 @@ namespace CagriMerkezi2.Utility
                 .HasMany(departman => departman.CalisanList)
                 .WithOne(calisan => calisan.Departman)
                 .HasForeignKey(calisan => calisan.DepId);
+
+            // Birim, Depatman ve CagriMerkezi arasındaki one-to-many ilişkileri
+            modelBuilder.Entity<Birim>()
+                .HasMany(birim => birim.CagriList)
+                .WithOne(cagriMerkezi => cagriMerkezi.Birim)
+                .HasForeignKey(cagriMerkezi => cagriMerkezi.BirimId);
+
+            modelBuilder.Entity<Departman>()
+                .HasMany(departman => departman.CagriList)
+                .WithOne(cagriMerkezi => cagriMerkezi.Departman)
+                .HasForeignKey(cagriMerkezi => cagriMerkezi.DepId);
 
 
             // identity için:

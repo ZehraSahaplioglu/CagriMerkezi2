@@ -1,0 +1,73 @@
+﻿@model List<CagriMerkezi>
+
+<div class="container">
+
+    <div class="row pt-3 pb-4">
+
+        <div>
+
+            <h1>Çagrı Merkezine Gelen Şikayetler</h1>
+            <hr />
+
+        </div>
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+                <th> </th>
+                <th>Id</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>TC</th>
+                <th>Adres</th>
+                <th>Tel No</th>
+                <th>Açıklama</th>
+                <th>Sorumlu Birim</th>
+                <th>Sorumlu Departman</th>
+                <th> </th>
+                <th> </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach (var cagriMerkezi in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@cagriMerkezi.ResimUrl" style="border-radius: 7px; border 1px; solid #bbb9b9;
+                            max-width: 145px; max: 275px" />
+                    </td>
+                    <td>@cagriMerkezi.Id</td>
+                    <td>@cagriMerkezi.Ad</td>
+                    <td>@cagriMerkezi.Soyad</td>
+                    <td>@cagriMerkezi.TC</td>
+                    <td>@cagriMerkezi.Adres</td>
+                    <td>@cagriMerkezi.TelNo</td>
+                    <td>@cagriMerkezi.Aciklama</td>
+                    <td>@cagriMerkezi.Birim.Ad</td>
+                    <td>@cagriMerkezi.Departman.Ad</td>
+
+                    <td>
+                        <a asp-controller="CagriMerkezi" asp-action="EkleGuncelle" asp-route-id="@cagriMerkezi.Id" type="button"
+                           class="btn btn-success" style="width:200px">Güncelle</a>
+                    </td>
+                    <td>
+                        <a asp-controller="CagriMerkezi" asp-action="Sil" asp-route-id="@cagriMerkezi.Id" type="button"
+                           class="btn btn-danger" style="width:200px">Sil</a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+</div>

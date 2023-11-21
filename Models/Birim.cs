@@ -17,5 +17,7 @@ namespace CagriMerkezi2.Models
 
         public ICollection<Calisan> CalisanList { get; set; }
 
+        public ICollection<CagriMerkezi> CagriList { get; set; }
+
     }
 }

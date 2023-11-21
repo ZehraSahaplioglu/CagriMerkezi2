@@ -1,0 +1,62 @@
+﻿@model CagriMerkezi
+
+<form method="post">
+
+    <div class="border p-3 mt-5">
+
+        <div class="row pb-3">
+
+            <h2 class="text-primary">Çağrı Sil</h2>
+            <hr />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label asp-for="Ad" class="p-0"></label>
+            <input asp-for="Ad" disabled class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label asp-for="Soyad" class="p-0"></label>
+            <input asp-for="Soyad" disabled class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label asp-for="TC" class="p-0"></label>
+            <input asp-for="TC" disabled class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label asp-for="Adres" class="p-0"></label>
+            <input asp-for="Adres" disabled class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label asp-for="TelNo" class="p-0"></label>
+            <input asp-for="TelNo" disabled class="form-control" />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label asp-for="Aciklama" class="p-0"></label>
+            <input asp-for="Aciklama" disabled class="form-control" />
+
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Çagrı Sil</button>
+
+        <a asp-controller="CagriMerkezi" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">Geri Dön</a>
+
+    </div>
+
+</form>
