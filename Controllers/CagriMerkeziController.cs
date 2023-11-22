@@ -106,9 +106,9 @@ namespace CagriMerkezi2.Controllers
         }
 
         [HttpPost]
-        public IActionResult EkleGuncelle(CagriMerkezi cagriMerkezi, IFormFile? file)
+        public IActionResult EkleGuncelle(CagriMerkezi? cagriMerkezi, IFormFile? file)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 string cagriPath = Path.Combine(wwwRootPath, @"img");
@@ -131,7 +131,7 @@ namespace CagriMerkezi2.Controllers
                     _cagriMerkeziRepository.Guncelle(cagriMerkezi);
                 }
                 _cagriMerkeziRepository.Kaydet();
-                return RedirectToAction("Index", "CagriMerkezi");
+                return RedirectToAction("GelenSikayet", "CagriMerkezi");
 
             }
             return View();

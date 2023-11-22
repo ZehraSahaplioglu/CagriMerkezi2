@@ -41,8 +41,15 @@
             {
                 <tr>
                     <td>
-                        <img src="@cagriMerkezi.ResimUrl" style="border-radius: 7px; border 1px; solid #bbb9b9;
+                        @if (cagriMerkezi.ResimUrl != null)
+                        {
+                            <img src="@cagriMerkezi.ResimUrl" style="border-radius: 7px; border 1px; solid #bbb9b9;
                             max-width: 145px; max: 275px" />
+                        }
+                        else
+                        {
+                            <span> </span>
+                        }
                     </td>
                     <td>@cagriMerkezi.Id</td>
                     <td>@cagriMerkezi.Ad</td>
@@ -51,8 +58,26 @@
                     <td>@cagriMerkezi.Adres</td>
                     <td>@cagriMerkezi.TelNo</td>
                     <td>@cagriMerkezi.Aciklama</td>
-                    <td>@cagriMerkezi.Birim.Ad</td>
-                    <td>@cagriMerkezi.Departman.Ad</td>
+                    <td>
+                        @if (cagriMerkezi.Birim != null)
+                        {
+                            @cagriMerkezi.Birim.Ad
+                        }
+                        else
+                        {
+                            <span>Birim bilgisi bulunamadı</span>
+                        }
+                    </td>
+                    <td>
+                        @if (cagriMerkezi.Departman != null)
+                        {
+                            @cagriMerkezi.Departman.Ad
+                        }
+                        else
+                        {
+                            <span>Departman bilgisi bulunamadı</span>
+                        }
+                    </td>
 
                     <td>
                         <a asp-controller="CagriMerkezi" asp-action="EkleGuncelle" asp-route-id="@cagriMerkezi.Id" type="button"
