@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Başvuru Sorgula</title>
+    <style>
+        /* Basit bir CSS stil örneği */
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        form {
+            margin: 20px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <form method="get" action="/Sikayet/Sorgula">
+        <label>Başvuru Kodu:</label>
+        <input type="text" name="kod" />
+        <button type="submit" class="btn btn-primary">Sorgula</button>
+    </form>
+
+
+    @if (Model != null)
+    {
+        <div class="mb-3">
+            <label>Başvuru Kodu:</label>
+            <span>@Model.BasvuruKodu</span>
+        </div>
+    }
+</body>
+</html>

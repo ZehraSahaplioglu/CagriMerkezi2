@@ -1,26 +1,110 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <title>Başvuru Sayfası</title>
+
+    <title>Hoşgeldiniz | Malatya Battalgazi Belediyesi</title>
+    <meta name="description" content="Battalgazi Belediyesi - Vatandaş Başvuru">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BATTALGAZİ BELEDİYESİ</title>
+
+
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 200px;
+            height: 100px;
+            margin-right: 10px; /* Sağa boşluk eklemek için margin-right kullanılıyor */
+            order: -1; /* Sıralamayı değiştirmek için order kullanılıyor */
+        }
+
+        h1 {
+            order: 1; /* Sıralamayı değiştirmek için order kullanılıyor */
+        }
+
+        .display-6 {
+            text-decoration: underline;
+        }
+
+        .buyuk-link {
+            font-size: 40px; /* İstediğiniz boyutu burada belirleyebilirsiniz */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        /* Butonların stil ayarları */
+        button {
+            padding: 10px 20px; /* Buton içerisindeki içeriği çevreleyen boşluk */
+            font-size: 16px; /* Yazı boyutu */
+            background-color: #008CBA; /* Arka plan rengi */
+            color: white; /* Yazı rengi */
+            border: none; /* Kenarlık yok */
+            border-radius: 5px; /* Köşe yuvarlama */
+            cursor: pointer; /* İmleci el işareti yap */
+            margin: 5px; /* Butonlar arasındaki boşluk */
+        }
+
+            button:hover {
+                background-color: #808080; /* Mouse hover durumunda arka plan rengi */
+            }
+
+            /* İkinci butonun özel stil ayarları */
+            button.special {
+                background-color: #008CBA; /* Arka plan rengi */
+                color: white; /* Yazı rengi */
+                font-weight: bold; /* Kalın yazı */
+                text-transform: uppercase; /* Yazıyı büyük harfe dönüştürme */
+            }
+
+                button.special:hover {
+                    background-color: #005780; /* Mouse hover durumunda arka plan rengi */
+                }
+    </style>
+
 </head>
 <body>
-    <div>
-        <h2>Başvuru Oluştur</h2>
-        <form action="@Url.Action("EkleGuncelle", "CagriMerkezi")" method="get">
-            
-            <button type="submit">Başvuruyu Oluştur</button>
+
+    <div class="container">
+        <h1 class="display-1"><marquee>BATTALGAZİ BELEDİYESİ</marquee></h1>
+        <img src="~/img/logo.jpeg" alt="Battalgazi Belediyesi Logo" class="logo" width="200" height="100">
+    </div>
+
+    <div class="d-flex justify-content-between">
+
+        <form action="@Url.Action("EkleGuncelle","CagriMerkezi")" method="get" class="m-widget-28__tab">
+
+
+            <h1 class='m-portlet__head-text m--font-light'>   BAŞVURU OLUŞTUR          </h1>
+
+            <div class='m-widget28__tab-item'> <span></span> <span>Tüm istek ve şikayetlerinizi iletebilirsiniz</span> </div>
+            <div class='m-widget28__tab-item'> <span></span> <span>Hızlı başvuru oluşturabilirsiniz</span> </div>
+            <div class='m-widget28__tab-item'> <span></span> <span>Başvurunuza fotoğraf ekleyebilirsiniz</span> </div>
+            <button type="submit">Başvuruyu Oluştur.</button>
+
+        </form>
+
+        <form action="@Url.Action("BasvuruSorgula","Sikayet")" method="get" class="m-widget-28__tab">
+
+
+
+            <h1 class='m-portlet__head-text m--font-light'>      BAŞVURU SORGULA    </h1>
+
+            <div class='m-widget28__tab-item'> <span></span> <span>Başvuru ve telefon numarası ile sorgulama yapabilirsiniz.</span> </div>
+            <div class='m-widget28__tab-item'> <span></span> <span>Başvuru durumunuzu kontrol edebilirsiniz.</span> </div>
+            <div class='m-widget28__tab-item'> <span></span> <span>Başvuru linkinizi saklayıp tekrar kontrol sağlayabilirsiniz.</span> </div>
+            <button type="submit">Başvuruyu sorgula.</button>
+
         </form>
     </div>
 
-    <div>
-        <h2>Başvuru Sorgula</h2>
-        <form action="@Url.Action("Index", "Sikayet")" method="get">
 
-            <button type="submit">Başvuruyu Sorgula</button>
-        </form>
-    </div>
-
-   
 </body>
-</html>
 
+</html>

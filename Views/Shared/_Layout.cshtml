@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CagriMerkezi2.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="site.css" />
 </head>
 <body>
     <header>
@@ -60,6 +64,36 @@
             </div>
         </nav>
     </header>
+
+    <nav class="sidebar">
+
+        <ul>
+            <li>
+                <a href="#">
+                    <span class="simge"><i class="fas fa-house-user"></i></span>
+                    <span class="baslik">Ana Sayfa</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    <span class="simge"><i class="fas fa-wrench"></i></span>
+                    <span class="baslik">Ayarlar</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#" class="iletisim-link">
+                    <span class="simge"><i class="fas fa-tty"></i></span>
+                    <span class="baslik">İletişim</span>
+                </a>
+            </li>
+
+
+        </ul>
+
+    </nav>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

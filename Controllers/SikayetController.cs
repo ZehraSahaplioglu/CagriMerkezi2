@@ -46,6 +46,11 @@ namespace CagriMerkezi2.Controllers
             return View(objSikayetList);
         }
 
+        public IActionResult BasvuruSorgula() 
+        { 
+            return View(); 
+        }
+
         [HttpGet]
         public IActionResult GetFilteredSikayetler(int birimId)
         {

@@ -1,11 +1,54 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<div class="text-center">
-    <h1 class="display-4">BATTALGAZİ BELEDİYESİNE HOŞGELDİNİZ</h1>
-    <p>Ziyaret Etmek İçin -> <a href="https://www.battalgazi.bel.tr/">https://www.battalgazi.bel.tr/</a>.</p>
-    <p>Sorunları Bildirmek İçin -> <a href="@Url.Action("Yonlendirme", "Home")">Şikayet Et!</a></p>
+    <title>Hoşgeldiniz | Malatya Battalgazi Belediyesi</title>
+    <meta name="description" content="Battalgazi Belediyesi - Vatandaş Başvuru">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+          integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
 
-</div>
+    <link rel="stylesheet" href="site.css" />
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".iletisim-link").click(function (e) {
+                e.preventDefault();
+                window.open('@Url.Action("Iletisim", "Home")', '_blank');
+            });
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <!-- Header Container -->
+    <div class="header-container">
+        <a href="https://www.battalgazi.bel.tr/">
+            <img src="~/img/logo.jpeg" alt="Battalgazi Belediyesi Logo" class="logo" width="200" height="100">
+        </a>
+        <h1 class="display-1">BATTALGAZİ BELEDİYESİ</h1>
+    </div>
+
+    <div class="text-center">
+        <br>
+        <br>
+
+        <a href="@Url.Action("Yonlendirme", "Home")" class="buyuk-link">Vatandaş Online Başvuru Merkezi</a>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <p style="font-size: 48px; font-style: italic; font-weight: bold; font-family: 'Comic Sans MS', cursive; color:grey ;">Çağrı Merkezi-->444 65 95 </p>
+    </div>
+
+</body>
+
+</html>

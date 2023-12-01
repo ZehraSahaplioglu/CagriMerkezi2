@@ -1,22 +1,169 @@
+<style >
+/* Bu kýsým sayfanýn genel stillerini içerir */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
+
+.narrower-input {
+    width: 60%;
+    /* Ýhtiyacýnýza göre geniþliði ayarlayýn */
+}
+
+/* Bu kýsým sayfanýn özel stillerini içerir */
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+/* Logo ve baþlýk container'ýný saða al */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    /* Saða hizala */
+    padding: 20px;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+
+h1 {
+    margin: 0;
+    /* Baþlýk margin'ýný sýfýrla */
+    order: 1;
+}
+
+.display-6 {
+    text-decoration: underline;
+    color: black;
+}
+
+.buyuk-link {
+    font-size: 24px;
+    color: black;
+    text-decoration: none;
+    border: 2px solid black;
+    padding: 10px;
+    display: inline-block;
+    margin-top: 20px;
+    /* Adjust the margin */
+    background-color: white;
+    border-radius: 5px;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    width: 95%;
+    height: 100%;
+    z-index: -1;
+}
+
+.menu-button {
+    font-size: 20px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+}
+
+.text-center {
+    text-align: center;
+    padding: 20px;
+    /* Ýstediðiniz kadar padding ekleyebilirsiniz */
+}
+
+.sidebar {
+    position: fixed;
+    width: 50px;
+    height: 100%;
+    background: gray;
+    left: 0;
+    overflow: hidden;
+    transition: .5s;
+}
+
+    .sidebar:hover {
+        width: 200px;
+    }
+
+    .sidebar ul {
+        width: 100%;
+        padding: 0;
+    }
+
+        .sidebar ul li {
+            width: 100%;
+            list-style: none;
+        }
+
+            .sidebar ul li:hover {
+                background: blue;
+            }
+
+            .sidebar ul li a {
+                display: flex;
+                text-decoration: none;
+                color: white;
+            }
+
+                .sidebar ul li a .simge {
+                    display: block;
+                    min-width: 50px;
+                    height: 50px;
+                    line-height: 50px;
+                    text-align: center;
+                }
+
+                .sidebar ul li a i {
+                    font-size: 25px;
+                }
+
+                .sidebar ul li a .baslik {
+                    display: block;
+                    min-width: 150px; /* Deðiþtirilebilir geniþlik */
+                    height: 50px;
+                    line-height: 50px;
+                }
+
+
+.text-center {
+    position: relative;
+}
+
+.resim-no {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 300px; /* Resmin geniþliði */
+    height: 200px; /* Otomatik yükseklik ayarý, oranlarý korur */
+}
+
+
+</style >

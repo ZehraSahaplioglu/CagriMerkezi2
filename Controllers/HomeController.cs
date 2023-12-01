@@ -23,6 +23,10 @@ namespace CagriMerkezi2.Controllers
             return View();
         }
 
+        public IActionResult Iletisim() {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
