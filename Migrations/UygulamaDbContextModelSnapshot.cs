@@ -189,7 +189,6 @@ namespace CagriMerkezi2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ResimUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Soyad")

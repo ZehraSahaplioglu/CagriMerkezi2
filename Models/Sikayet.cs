@@ -31,7 +31,7 @@ namespace CagriMerkezi2.Models
         public string Aciklama { get; set; }
 
         [ValidateNever]
-        public string ResimUrl { get; set; }
+        public string? ResimUrl { get; set; }
 
         public int BirimId { get; set; }
         public Birim Birim { get; set; }

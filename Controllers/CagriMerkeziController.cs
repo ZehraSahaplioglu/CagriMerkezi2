@@ -106,9 +106,9 @@ namespace CagriMerkezi2.Controllers
         }
 
         [HttpPost]
-        public IActionResult EkleGuncelle(CagriMerkezi? cagriMerkezi, IFormFile? file)
+        public IActionResult EkleGuncelle(CagriMerkezi? cagriMerkezi, IFormFile? file, int? BirimId, int? DepId)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
                 string cagriPath = Path.Combine(wwwRootPath, @"img");
@@ -122,20 +122,88 @@ namespace CagriMerkezi2.Controllers
                     cagriMerkezi.ResimUrl = @"\img\" + file.FileName;
                 }
 
+                
+                
                 if (cagriMerkezi.Id == 0)
                 {
-                    _cagriMerkeziRepository.Ekle(cagriMerkezi);
+                    // Eğer BirimId ve DepId değerleri varsa Sikayet tablosuna ekleyin
+                    if (BirimId.HasValue && DepId.HasValue)
+                    {
+                        Sikayet yeniSikayet = new Sikayet
+                        {
+                            Ad = cagriMerkezi.Ad,
+                            Soyad = cagriMerkezi.Soyad,
+                            TC = cagriMerkezi.TC,
+                            Adres = cagriMerkezi.Adres,
+                            TelNo = cagriMerkezi.TelNo,
+                            Aciklama = cagriMerkezi.Aciklama,
+                            ResimUrl = cagriMerkezi.ResimUrl,
+                            BirimId = BirimId.Value,
+                            DepId = DepId.Value
+                        };
+
+                        _sikayetRepository.Ekle(yeniSikayet);
+                        _sikayetRepository.Kaydet();
+                        return RedirectToAction("Index", "Sikayet");
+                    }
+                    else
+                    {
+                        // Eğer BirimId ve DepId değerleri yoksa CagriMerkezi tablosuna ekleyin
+                        _cagriMerkeziRepository.Ekle(cagriMerkezi);
+                        _cagriMerkeziRepository.Kaydet();
+                        return RedirectToAction("GelenSikayet", "CagriMerkezi");
+                    }
                 }
+
+                
+                
+            }else
+            {
+                if (BirimId.HasValue && DepId.HasValue)
+                {
+                    _cagriMerkeziRepository.Detach(cagriMerkezi);
+
+                    var silinecekCagriMerkezi = _cagriMerkeziRepository.Get(u => u.Id == cagriMerkezi.Id);
+
+                    if (silinecekCagriMerkezi != null)
+                    {
+                        _cagriMerkeziRepository.Sil(silinecekCagriMerkezi);
+                        _cagriMerkeziRepository.Kaydet();
+                    }
+
+                    Sikayet yeniSikayet = new Sikayet
+                    {
+                        Ad = cagriMerkezi.Ad,
+                        Soyad = cagriMerkezi.Soyad,
+                        TC = cagriMerkezi.TC,
+                        Adres = cagriMerkezi.Adres,
+                        TelNo = cagriMerkezi.TelNo,
+                        Aciklama = cagriMerkezi.Aciklama,
+                        ResimUrl = cagriMerkezi.ResimUrl,
+                        BirimId = BirimId.Value,
+                        DepId = DepId.Value
+                    };
+
+                    _sikayetRepository.Ekle(yeniSikayet);
+                    _sikayetRepository.Kaydet();
+                    //_cagriMerkeziRepository.Detach(cagriMerkezi);
+                    //_cagriMerkeziRepository.Sil(cagriMerkezi);
+                    // BURADA HATA VERİYOR
+                    return RedirectToAction("Index", "Sikayet");
+                }
+
                 else
                 {
+                    // Eğer BirimId ve DepId değerleri yoksa CagriMerkezi tablosunu güncelleyin
                     _cagriMerkeziRepository.Guncelle(cagriMerkezi);
+                    _cagriMerkeziRepository.Kaydet();
+                    return RedirectToAction("GelenSikayet", "CagriMerkezi");
                 }
-                _cagriMerkeziRepository.Kaydet();
-                return RedirectToAction("GelenSikayet", "CagriMerkezi");
-
+                
             }
             return View();
         }
+
 
         public IActionResult Sil(int? id)
         {
@@ -162,7 +230,7 @@ namespace CagriMerkezi2.Controllers
             }
             _cagriMerkeziRepository.Sil(cagri);
             _cagriMerkeziRepository.Kaydet();
-            return RedirectToAction("Index", "CagriMerkezi");
+            return RedirectToAction("GelenSikayet", "CagriMerkezi");
         }
 
 

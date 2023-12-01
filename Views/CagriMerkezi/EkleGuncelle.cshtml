@@ -1,6 +1,6 @@
 ﻿@model CagriMerkezi
 
-<form method="post" enctype="multipart/form-data">
+<form method="post" action="EkleGuncelle"  enctype="multipart/form-data">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     
@@ -16,8 +16,10 @@
 
                     <h2 class="text-primary">@(Model == null ? "Çagrı Ekle" : "Çağrı Güncelle")</h2>
                     <hr />
-
+                        
                 </div>
+
+                <input asp-for="Id" type="hidden" />
 
                 <div class="mb-3">
 
@@ -58,7 +60,7 @@
                     <span asp-validation-for="TelNo" class="text-danger"></span>
 
                 </div>
-
+           
                 <div class="mb-3">
 
                     <label asp-for="Aciklama" class="p-0">Açıklama</label>

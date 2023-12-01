@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CagriMerkezi2.Migrations
 {
     [DbContext(typeof(UygulamaDbContext))]
-    [Migration("20231121101104_cagriMerkeziTablosununEklenmesi")]
-    partial class cagriMerkeziTablosununEklenmesi
+    [Migration("20231201075406_reVtYuklemesi")]
+    partial class reVtYuklemesi
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -192,7 +192,6 @@ namespace CagriMerkezi2.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ResimUrl")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Soyad")
