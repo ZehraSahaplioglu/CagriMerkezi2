@@ -30,14 +30,17 @@ namespace CagriMerkezi2.Models
         [Required]
         public string Aciklama { get; set; }
 
-        [ValidateNever]
+ 
         public string? ResimUrl { get; set; }
 
         public int BirimId { get; set; }
         public Birim Birim { get; set; }
 
-        public int DepId { get; set; }
-        public Departman Departman { get; set; }
+        public int? DepId { get; set; }
+        public Departman? Departman { get; set; }
+
+        public int? DurumId { get; set; }
+        public SikayetDurum? SikayetDurum { get; set; }
 
     }
 }

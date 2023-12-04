@@ -25,6 +25,7 @@ builder.Services.AddScoped<ISikayetRepository, SikayetRepository>();
 builder.Services.AddScoped<ICalisanRepository, CalisanRepository>();
 builder.Services.AddScoped<ICagriMerkeziRepository, CagriMerkeziRepository>();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
+builder.Services.AddScoped<ISikayetDurumRepository, SikayetDurumRepository>();
 
 var app = builder.Build();
 

@@ -36,5 +36,8 @@ namespace CagriMerkezi2.Models
         public int? DepId { get; set; }
         public Departman? Departman { get; set; }
 
+        public int? DurumId { get; set; }
+        public SikayetDurum? SikayetDurum { get; set; }
+
     }
 }

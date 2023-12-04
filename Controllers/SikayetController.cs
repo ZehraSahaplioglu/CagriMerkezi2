@@ -11,24 +11,29 @@ namespace CagriMerkezi2.Controllers
         private readonly ISikayetRepository _sikayetRepository;
         private readonly IBirimRepository _birimRepository;
         private readonly IDepartmanRepository _departmanRepository;
+        private readonly ISikayetDurumRepository _sikayetDurumRepository;
         public readonly IWebHostEnvironment _webHostEnvironment;
 
 
-        public SikayetController (ISikayetRepository sikayetRepository, IBirimRepository birimRepository, IWebHostEnvironment webHostEnvironment, IDepartmanRepository departmanRepository)
+        public SikayetController (ISikayetRepository sikayetRepository, IBirimRepository birimRepository, 
+            IWebHostEnvironment webHostEnvironment, IDepartmanRepository departmanRepository, ISikayetDurumRepository sikayetDurumRepository)
         {
             _sikayetRepository = sikayetRepository;
             _birimRepository = birimRepository;
             _webHostEnvironment = webHostEnvironment;
             _departmanRepository = departmanRepository;
+            _sikayetDurumRepository = sikayetDurumRepository;
 
             var result = from sikayet in _sikayetRepository.GetAll()
                          join birim in _birimRepository.GetAll() on sikayet.BirimId equals birim.Id
                          join departman in _departmanRepository.GetAll() on sikayet.DepId equals departman.Id
+                         join sikayetDurum in _sikayetDurumRepository.GetAll() on sikayet.DurumId equals sikayetDurum.Id
                          select new
                          {
                              sikayetAdi = sikayet.Ad,
                              departmanAdi = departman.Ad,
                              birimAdi = birim.Ad,
+                             durumAdi = sikayetDurum.Ad,
                          };
 
         }
@@ -51,6 +56,8 @@ namespace CagriMerkezi2.Controllers
             return View(); 
         }
 
+
+        // arama motorunda birime göre filtreleme işlemi yapar
         [HttpGet]
         public IActionResult GetFilteredSikayetler(int birimId)
         {
@@ -72,6 +79,14 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {
+
+            IEnumerable<SelectListItem> DurumSikayetList = _sikayetDurumRepository.GetAll().Select(b => new SelectListItem
+            {
+                Text = b.Ad,
+                Value = b.Id.ToString()
+            });
+            ViewBag.DurumSikayetList = DurumSikayetList;
+
             IEnumerable<SelectListItem> BirimSikayetList = _birimRepository.GetAll().Select(b => new SelectListItem
             {
                 Text = b.Ad,
@@ -117,6 +132,7 @@ namespace CagriMerkezi2.Controllers
             }
         }
 
+        // seçilen birime göre departmanı getirir
         [HttpGet]
         public IActionResult GetDepartmentsByBirimId(int birimId)
         {

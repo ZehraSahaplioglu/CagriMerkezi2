@@ -1,0 +1,27 @@
+﻿@model SikayetDurum
+
+<form method="post">
+
+    <div class="border p-3 mt-5">
+
+        <div class="row pb-3">
+
+            <h2 class="text-primary">Durum Sil</h2>
+            <hr />
+
+        </div>
+
+        <div class="mb-3">
+
+            <label asp-for="Ad" class="p-0"></label>
+            <input asp-for="Ad" disabled class="form-control" />
+
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Durum Sil</button>
+
+        <a asp-controller="SikayetDurum" asp-action="Index" class="btn btn-lg btn-primary" style="width:250px">Geri Dön</a>
+
+    </div>
+
+</form>

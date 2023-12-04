@@ -6,7 +6,7 @@
 
         <div>
 
-            <h1>Çagrı Merkezine Gelen Şikayetler</h1>
+            <h1>Çağrı Merkezine Gelen Şikayetler</h1>
             <hr />
 
         </div>
@@ -26,6 +26,7 @@
                 <th>Adres</th>
                 <th>Tel No</th>
                 <th>Açıklama</th>
+                <th>Durum</th>
                 <th>Sorumlu Birim</th>
                 <th>Sorumlu Departman</th>
                 <th> </th>
@@ -58,6 +59,7 @@
                     <td>@cagriMerkezi.Adres</td>
                     <td>@cagriMerkezi.TelNo</td>
                     <td>@cagriMerkezi.Aciklama</td>
+                    <td>@cagriMerkezi.SikayetDurum.Ad</td>
                     <td>
                         @if (cagriMerkezi.Birim != null)
                         {

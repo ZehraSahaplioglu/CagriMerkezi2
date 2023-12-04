@@ -1,0 +1,67 @@
+﻿@model List<SikayetDurum>
+
+<div class="container">
+
+    <div class="row pt-3 pb-4">
+
+        <div>
+
+            <h1>Durum Sayfası</h1>
+
+        </div>
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>Id</th>
+
+                <th>Durum Adı</th>
+
+                <th> </th>
+
+                <th> </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach(var sikayetDurum in Model)
+            {
+                <tr>
+
+                    <td>@sikayetDurum.Id</td>
+                    <td>@sikayetDurum.Ad</td>
+                    <td>
+                        <a asp-controller="SikayetDurum" asp-action="Guncelle" asp-route-id="@sikayetDurum.Id" type="button"
+                           class="btn btn-success" style="width:200px">Güncelle</a>
+                    </td>
+                    <td>
+                        <a asp-controller="SikayetDurum" asp-action="Sil" asp-route-id="@sikayetDurum.Id" type="button"
+                           class="btn btn-danger" style="width:200px">Sil</a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+    <div class="row pt-3 pb-2">
+
+        <div>
+
+            <a asp-controller="SikayetDurum" asp-action="Ekle" class="btn btn-lg btn-primary" type="button">Yeni Durum Ekle</a>
+
+        </div>
+
+    </div>
+
+</div>

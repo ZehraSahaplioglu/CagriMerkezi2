@@ -76,6 +76,13 @@
                 </div>
 
                 <div class="mb-3">
+                    <label asp-for="DurumId" class="p-0">Durum:</label>
+                    <select id="DurumId" name="DurumId" asp-items="ViewBag.DurumSikayetList" class="form-select">
+                        <option value="">Seçiniz:</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
                     <label asp-for="BirimId" class="p-0">Sorumlu Birim:</label>
                     <select id="BirimId" name="BirimId" asp-items="ViewBag.BirimSikayetList" class="form-select">
                         <option value="">Seçiniz:</option>

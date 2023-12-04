@@ -23,6 +23,8 @@ namespace CagriMerkezi2.Utility
 
         public DbSet<UygKullancisi> UygKullanicilari { get; set; }
 
+        public DbSet<SikayetDurum> SikayetDurums { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Birim ve Departman arasındaki one-to-many ilişkisi
@@ -65,6 +67,17 @@ namespace CagriMerkezi2.Utility
                 .HasMany(departman => departman.CagriList)
                 .WithOne(cagriMerkezi => cagriMerkezi.Departman)
                 .HasForeignKey(cagriMerkezi => cagriMerkezi.DepId);
+
+            // Sikayet, CagriMerkezi ve SikayetDurum arasındaki one-to-many ilişkileri
+            modelBuilder.Entity<SikayetDurum>()
+                .HasMany(sikayetDurum => sikayetDurum.CagriMerkeziList)
+                .WithOne(cagriMerkezi => cagriMerkezi.SikayetDurum)
+                .HasForeignKey(cagriMerkezi => cagriMerkezi.DurumId);
+
+            modelBuilder.Entity<SikayetDurum>()
+                .HasMany(sikayetDurum => sikayetDurum.SikayetList)
+                .WithOne(sikayet => sikayet.SikayetDurum)
+                .HasForeignKey(sikayet => sikayet.DurumId);
 
 
             // identity için:

@@ -10,28 +10,33 @@ namespace CagriMerkezi2.Controllers
         private readonly ISikayetRepository _sikayetRepository;
         private readonly IBirimRepository _birimRepository;
         private readonly IDepartmanRepository _departmanRepository;
+        private readonly ISikayetDurumRepository _sikayetDurumRepository;
         public readonly IWebHostEnvironment _webHostEnvironment;
 
 
         public CagriMerkeziController(ICagriMerkeziRepository cagriMerkeziRepository, ISikayetRepository sikayetRepository, 
-                    IBirimRepository birimRepository, IWebHostEnvironment webHostEnvironment, IDepartmanRepository departmanRepository)
+                    IBirimRepository birimRepository, IWebHostEnvironment webHostEnvironment, IDepartmanRepository departmanRepository,
+                    ISikayetDurumRepository sikayetDurumRepository)
         {
             _cagriMerkeziRepository = cagriMerkeziRepository;
             _sikayetRepository = sikayetRepository;
             _birimRepository = birimRepository;
             _webHostEnvironment = webHostEnvironment;
             _departmanRepository = departmanRepository;
+            _sikayetDurumRepository = sikayetDurumRepository;
 
             var result = from cagriMerkezi in _cagriMerkeziRepository.GetAll()
                          join birim in _birimRepository.GetAll() on cagriMerkezi.BirimId equals birim.Id
                          join departman in _departmanRepository.GetAll() on cagriMerkezi.DepId equals departman.Id
+                         join sikayetDurum in _sikayetDurumRepository.GetAll() on cagriMerkezi.DurumId equals sikayetDurum.Id
                          select new
                          {
                              cagriMerkeziAdi = cagriMerkezi.Ad,
                              departmanAdi = departman.Ad,
                              birimAdi = birim.Ad,
+                             durumAdi = sikayetDurum.Ad,
                          };
-
+            _sikayetDurumRepository = sikayetDurumRepository;
         }
 
         public IActionResult Index()
@@ -47,6 +52,14 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {
+
+            IEnumerable<SelectListItem> DurumCagriList = _sikayetDurumRepository.GetAll().Select(b => new SelectListItem
+            {
+                Text = b.Ad,
+                Value = b.Id.ToString()
+            });
+            ViewBag.DurumCagriList = DurumCagriList;
+
             IEnumerable<SelectListItem> BirimCagriList = _birimRepository.GetAll().Select(b => new SelectListItem
             {
                 Text = b.Ad,
@@ -106,7 +119,7 @@ namespace CagriMerkezi2.Controllers
         }
 
         [HttpPost]
-        public IActionResult EkleGuncelle(CagriMerkezi? cagriMerkezi, IFormFile? file, int? BirimId, int? DepId)
+        public IActionResult EkleGuncelle(CagriMerkezi? cagriMerkezi, IFormFile? file, int? BirimId, int? DepId, int? DurumId)
         {
             if (!ModelState.IsValid)
             {
@@ -138,6 +151,7 @@ namespace CagriMerkezi2.Controllers
                             TelNo = cagriMerkezi.TelNo,
                             Aciklama = cagriMerkezi.Aciklama,
                             ResimUrl = cagriMerkezi.ResimUrl,
+                            DurumId = DurumId.Value,
                             BirimId = BirimId.Value,
                             DepId = DepId.Value
                         };
@@ -180,6 +194,7 @@ namespace CagriMerkezi2.Controllers
                         TelNo = cagriMerkezi.TelNo,
                         Aciklama = cagriMerkezi.Aciklama,
                         ResimUrl = cagriMerkezi.ResimUrl,
+                        DurumId = DurumId.Value,
                         BirimId = BirimId.Value,
                         DepId = DepId.Value
                     };
