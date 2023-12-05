@@ -12,6 +12,7 @@ namespace CagriMerkezi2.Models
             _uygulamaDbContext = uygulamaDbContext;
         }
 
+        // birime göre filtreleme işlemi
         public List<Sikayet> GetFilteredSikayetler(int birimId)
         {
             // Veritabanından ilgili birime ait sikayetleri çek
@@ -24,6 +25,21 @@ namespace CagriMerkezi2.Models
 
             // Sonuçları döndür
             return filteredSikayetler;
+        }
+
+        // duruma göre filtreleme işlemi
+        public List<Sikayet> GetFilteredDurum(int durumId)
+        {
+            // Veritabanından ilgili birime ait sikayetleri çek
+            var filteredSikayetDrm = _uygulamaDbContext.Sikayetler
+                .Where(s => s.DurumId == durumId)
+                .ToList();
+
+            // Filtreleme işlemleri buraya eklenebilir
+            // Örneğin, başka bir koşula göre filtreleme yapılabilir
+
+            // Sonuçları döndür
+            return filteredSikayetDrm;
         }
 
         public void Guncelle(Sikayet sikayet)

@@ -47,6 +47,13 @@ namespace CagriMerkezi2.Controllers
             Value = b.Id.ToString()
         }).ToList();
 
+            ViewBag.DrmSikayetList = _sikayetDurumRepository.GetAll()
+        .Select(b => new SelectListItem
+        {
+            Text = b.Ad,
+            Value = b.Id.ToString()
+        }).ToList();
+
             List<Sikayet> objSikayetList = _sikayetRepository.GetAll(includeProps: "Departman").ToList();
             return View(objSikayetList);
         }
@@ -75,7 +82,23 @@ namespace CagriMerkezi2.Controllers
             return PartialView("_SikayetListPartial", filteredSikayetList);
         }
 
+        // arama motorunda duruma göre filtreleme işlemi yapar
+        [HttpGet]
+        public IActionResult GetFilteredDurum(int durumId)
+        {
+            List<Sikayet> filteredSikayetDrmList;
 
+            if (durumId > 0)
+            {
+                filteredSikayetDrmList = _sikayetRepository.GetFilteredDurum(durumId);
+            }
+            else
+            {
+                filteredSikayetDrmList = _sikayetRepository.GetAll(includeProps: "Departman").ToList();
+            }
+
+            return PartialView("_SikayetListPartial", filteredSikayetDrmList);
+        }
 
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {

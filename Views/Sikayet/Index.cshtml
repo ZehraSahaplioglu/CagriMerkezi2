@@ -1,4 +1,6 @@
-﻿@model List<Sikayet>
+﻿<!DOCTYPE html>
+
+@model List<Sikayet>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -15,11 +17,17 @@
 
     </div>
 
+    <style>
+        html, body {
+            overflow-y: auto; /* or overflow: auto; */
+        }
+    </style>
+
     <div class="row mb-3">
         <div class="col-md-4">
             <label>Sorumlu Birim:</label>
             <select id="selectedBirimId" class="form-select">
-                <option value="">Tümü</option>
+                <option value="">Seçiniz:</option>
                 @foreach (var birim in ViewBag.BrSikayetList as List<SelectListItem>)
                 {
                     <option value="@birim.Value">@birim.Text</option>
@@ -28,6 +36,22 @@
         </div>
         <div class="col-md-4">
             <button id="btnFilter" class="btn btn-primary">Filtrele</button>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label>Durum:</label>
+            <select id="selectedDurumId" class="form-select">
+                <option value="">Seçiniz:</option>
+                @foreach (var durum in ViewBag.DrmSikayetList as List<SelectListItem>)
+                {
+                    <option value="@durum.Value">@durum.Text</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button id="buttonFilter" class="btn btn-primary">Filtrele</button>
         </div>
     </div>
 
@@ -118,5 +142,27 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function () {
+            $("#buttonFilter").on("click", function () {
+                var selectedDurumId = $("#selectedDurumId").val();
+
+                $.ajax({
+                    url: "/Sikayet/GetFilteredDurum",
+                    type: "GET",
+                    data: { durumId: selectedDurumId },
+                    success: function (result) {
+                        $(".table tbody").html(result);
+                    },
+                    error: function (error) {
+                        console.error(error);
+                    }
+                });
+            });
+        });
+    </script>
+
 </div>
+
+</html>
 
