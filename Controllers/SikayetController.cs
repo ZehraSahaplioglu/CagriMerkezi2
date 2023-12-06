@@ -58,9 +58,25 @@ namespace CagriMerkezi2.Controllers
             return View(objSikayetList);
         }
 
-        public IActionResult BasvuruSorgula() 
-        { 
-            return View(); 
+        public IActionResult BasvuruSorgula(string kod) 
+        {
+            if (ModelState.IsValid) {
+
+                Sikayet sikayet = _sikayetRepository.GetByBasvuruKodu(kod);
+
+                // Şikayet bulunamadıysa hata sayfasına yönlendir
+                if (sikayet == null)
+                {
+                    return View("Error");
+                }
+
+                // Şikayetin durumunu al
+                SikayetDurum sikayetDurum = sikayet.SikayetDurum;
+
+                // Durumu görüntüleyen sayfayı döndür
+                return View(sikayetDurum);
+            }
+            return View();
         }
 
 
@@ -186,8 +202,9 @@ namespace CagriMerkezi2.Controllers
                     sikayet.ResimUrl = @"\img\" + file.FileName;
                 }
 
-                if(sikayet.Id == 0)
+                if (sikayet.Id == 0)
                 {
+                    sikayet.BasvuruKodu = GenerateUniqueCode();
                     _sikayetRepository.Ekle(sikayet);
                 }
                 else
@@ -199,6 +216,14 @@ namespace CagriMerkezi2.Controllers
 
             }
             return View();
+        }
+
+        // başvuru sorgulada kullanılacak olan uiq kod oluşturulması
+        private string GenerateUniqueCode()
+        {
+            Guid uniqueGuid = Guid.NewGuid();
+            string uniqueCode = uniqueGuid.ToString("N").Substring(0, 10);
+            return uniqueCode;
         }
 
         public IActionResult Sil(int? id)

@@ -11,5 +11,8 @@ namespace CagriMerkezi2.Models
         void Guncelle(Sikayet sikayet);
 
         void Kaydet();
+
+        // başvuru kodu için
+        Sikayet GetByBasvuruKodu(string kod);
     }
 }

@@ -1,4 +1,8 @@
 ﻿<!DOCTYPE html>
+
+@model SikayetDurum
+
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -28,19 +32,19 @@
 </head>
 <body>
 
-    <form method="get" action="/Sikayet/Sorgula">
+    <form method="get" action="/Sikayet/BasvuruSorgula">
         <label>Başvuru Kodu:</label>
         <input type="text" name="kod" />
         <button type="submit" class="btn btn-primary">Sorgula</button>
     </form>
 
-
     @if (Model != null)
     {
         <div class="mb-3">
-            <label>Başvuru Kodu:</label>
-            <span>@Model.BasvuruKodu</span>
+            <label>Durum:</label>
+            <span>@Model.Ad</span>
         </div>
     }
+
 </body>
 </html>

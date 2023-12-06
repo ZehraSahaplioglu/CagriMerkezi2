@@ -61,5 +61,17 @@ namespace CagriMerkezi2.Models
         {
             _uygulamaDbContext.SaveChanges();
         }
+
+        // başvuru kodu için
+        public Sikayet GetByBasvuruKodu(string kod)
+        {
+            // Başvuru koduyla eşleşen şikayeti bul
+            var sikayet = _uygulamaDbContext.Sikayetler
+                .Include(s => s.SikayetDurum) // İlişkili durumu yüklemek için Include kullanabilirsiniz
+                .FirstOrDefault(s => s.BasvuruKodu == kod);
+
+            // Eğer başvuru koduyla eşleşen şikayet bulunamazsa null dönebilirsiniz.
+            return sikayet;
+        }
     }
 }

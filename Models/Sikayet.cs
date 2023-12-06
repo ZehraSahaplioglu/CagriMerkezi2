@@ -30,7 +30,9 @@ namespace CagriMerkezi2.Models
         [Required]
         public string Aciklama { get; set; }
 
- 
+        public string BasvuruKodu { get; set; }
+
+
         public string? ResimUrl { get; set; }
 
         public int BirimId { get; set; }

@@ -1,4 +1,6 @@
-﻿@model List<CagriMerkezi>
+﻿<!DOCTYPE html>
+
+@model List<CagriMerkezi>
 
 <div class="container">
 
@@ -13,6 +15,12 @@
 
     </div>
 
+    <style>
+        html, body {
+            overflow-y: auto; /* or overflow: auto; */
+        }
+    </style>
+
     <table class="table table-bordered">
 
         <thead>
@@ -26,6 +34,7 @@
                 <th>Adres</th>
                 <th>Tel No</th>
                 <th>Açıklama</th>
+                <th>Sorgulama Kodu</th>
                 <th>Durum</th>
                 <th>Sorumlu Birim</th>
                 <th>Sorumlu Departman</th>
@@ -59,6 +68,7 @@
                     <td>@cagriMerkezi.Adres</td>
                     <td>@cagriMerkezi.TelNo</td>
                     <td>@cagriMerkezi.Aciklama</td>
+                    <td>@cagriMerkezi.BasvuruKodu</td>
                     <td>@cagriMerkezi.SikayetDurum.Ad</td>
                     <td>
                         @if (cagriMerkezi.Birim != null)
@@ -98,3 +108,5 @@
     </table>
 
 </div>
+
+</html>

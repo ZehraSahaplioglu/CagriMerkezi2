@@ -139,6 +139,8 @@ namespace CagriMerkezi2.Controllers
                 
                 if (cagriMerkezi.Id == 0)
                 {
+                    cagriMerkezi.BasvuruKodu = GenerateUniqueCode();
+
                     // Eğer BirimId ve DepId değerleri varsa Sikayet tablosuna ekleyin
                     if (BirimId.HasValue && DepId.HasValue)
                     {
@@ -150,6 +152,7 @@ namespace CagriMerkezi2.Controllers
                             Adres = cagriMerkezi.Adres,
                             TelNo = cagriMerkezi.TelNo,
                             Aciklama = cagriMerkezi.Aciklama,
+                            BasvuruKodu = cagriMerkezi.BasvuruKodu,
                             ResimUrl = cagriMerkezi.ResimUrl,
                             DurumId = DurumId.Value,
                             BirimId = BirimId.Value,
@@ -193,6 +196,7 @@ namespace CagriMerkezi2.Controllers
                         Adres = cagriMerkezi.Adres,
                         TelNo = cagriMerkezi.TelNo,
                         Aciklama = cagriMerkezi.Aciklama,
+                        BasvuruKodu = cagriMerkezi.BasvuruKodu,
                         ResimUrl = cagriMerkezi.ResimUrl,
                         DurumId = DurumId.Value,
                         BirimId = BirimId.Value,
@@ -219,6 +223,13 @@ namespace CagriMerkezi2.Controllers
             return View();
         }
 
+        // başvuru sorgulada kullanılacak olan uiq kod oluşturulması
+        private string GenerateUniqueCode()
+        {
+            Guid uniqueGuid = Guid.NewGuid();
+            string uniqueCode = uniqueGuid.ToString("N").Substring(0, 10);
+            return uniqueCode;
+        }
 
         public IActionResult Sil(int? id)
         {
