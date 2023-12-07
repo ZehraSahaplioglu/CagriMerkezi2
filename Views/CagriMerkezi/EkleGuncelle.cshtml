@@ -6,8 +6,6 @@
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     
-    <input asp-for="ResimUrl" hidden />
-
     <div class="row">
 
         <div class="col-10">
@@ -24,11 +22,13 @@
                 <style>
                     html, body {
                         overflow-y: auto; /* or overflow: auto; */
+                        overflow-x: auto;
                     }
                 </style>
 
                 <input asp-for="Id" type="hidden" />
                 <input asp-for="BasvuruKodu" type="hidden" />
+                <input asp-for="ResimUrl" type="hidden" />
 
                 <div class="mb-3">
 
@@ -99,6 +99,14 @@
                     </select>
                 </div>
 
+                <div class="mb-3">
+
+                    <label asp-for="ResimUrl" class="p-0"></label>
+                    <input type="file" name="file" class="form-control" />
+
+                </div>
+
+
                 <script>
                     $(document).ready(function () {
                         $("#BirimId").change(function () {
@@ -125,12 +133,7 @@
                     });
                 </script>
 
-                <div class="mb-3">
-
-                    <label asp-for="ResimUrl" class="p-0"></label>
-                    <input type="file" name="file" class="form-control" />
-
-                </div>
+                
 
                 @if (Model != null)
                 {

@@ -177,9 +177,19 @@ namespace CagriMerkezi2.Controllers
             }
                 if (BirimId.HasValue && DepId.HasValue)
                 {
-                    
+                    string wwwRootPath = _webHostEnvironment.WebRootPath;
+                    string cagriPath = Path.Combine(wwwRootPath, @"img");
 
-                    Sikayet yeniSikayet = new Sikayet
+                    if (file != null)
+                    {
+                        using (var fileStream = new FileStream(Path.Combine(cagriPath, file.FileName), FileMode.Create))
+                        {
+                            file.CopyTo(fileStream);
+                        }
+                        cagriMerkezi.ResimUrl = @"\img\" + file.FileName;
+                    }
+
+                Sikayet yeniSikayet = new Sikayet
                     {
                         Ad = cagriMerkezi.Ad,
                         Soyad = cagriMerkezi.Soyad,
