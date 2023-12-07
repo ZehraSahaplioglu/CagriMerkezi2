@@ -198,14 +198,4 @@ h1 {
     height: 200px; /* Otomatik yükseklik ayarý, oranlarý korur */
 }
 
-.footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #f8f9fa; /* Footer arkaplan rengi */
-    padding: 0px 0; /* Footer içeriðinden içe boþluk */
-    text-align: center;
-    line-height: 20px;
-}
-
 </style >
