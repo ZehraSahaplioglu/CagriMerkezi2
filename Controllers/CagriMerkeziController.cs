@@ -174,19 +174,10 @@ namespace CagriMerkezi2.Controllers
 
                 
                 
-            }else
-            {
+            }
                 if (BirimId.HasValue && DepId.HasValue)
                 {
-                    _cagriMerkeziRepository.Detach(cagriMerkezi);
-
-                    var silinecekCagriMerkezi = _cagriMerkeziRepository.Get(u => u.Id == cagriMerkezi.Id);
-
-                    if (silinecekCagriMerkezi != null)
-                    {
-                        _cagriMerkeziRepository.Sil(silinecekCagriMerkezi);
-                        _cagriMerkeziRepository.Kaydet();
-                    }
+                    
 
                     Sikayet yeniSikayet = new Sikayet
                     {
@@ -205,9 +196,17 @@ namespace CagriMerkezi2.Controllers
 
                     _sikayetRepository.Ekle(yeniSikayet);
                     _sikayetRepository.Kaydet();
-                    //_cagriMerkeziRepository.Detach(cagriMerkezi);
-                    //_cagriMerkeziRepository.Sil(cagriMerkezi);
-                    // BURADA HATA VERİYOR
+
+                    _cagriMerkeziRepository.Detach(cagriMerkezi);
+
+                    var silinecekCagriMerkezi = _cagriMerkeziRepository.Get(u => u.Id == cagriMerkezi.Id);
+
+                    if (silinecekCagriMerkezi != null)
+                    {
+                        _cagriMerkeziRepository.Sil(silinecekCagriMerkezi);
+                        _cagriMerkeziRepository.Kaydet();
+                    }
+
                     return RedirectToAction("Index", "Sikayet");
                 }
 
@@ -219,8 +218,6 @@ namespace CagriMerkezi2.Controllers
                     return RedirectToAction("GelenSikayet", "CagriMerkezi");
                 }
                 
-            }
-            return View();
         }
 
         // başvuru sorgulada kullanılacak olan uiq kod oluşturulması

@@ -69,7 +69,16 @@
                     <td>@cagriMerkezi.TelNo</td>
                     <td>@cagriMerkezi.Aciklama</td>
                     <td>@cagriMerkezi.BasvuruKodu</td>
-                    <td>@cagriMerkezi.SikayetDurum.Ad</td>
+                    <td>
+                        @if (cagriMerkezi.SikayetDurum != null)
+                        {
+                            @cagriMerkezi.SikayetDurum.Ad
+                        }
+                        else
+                        {
+                            <span>Durum bilgisi bulunamadı</span>
+                        }
+                    </td>
                     <td>
                         @if (cagriMerkezi.Birim != null)
                         {
