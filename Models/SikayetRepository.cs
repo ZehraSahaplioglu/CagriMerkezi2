@@ -12,8 +12,20 @@ namespace CagriMerkezi2.Models
             _uygulamaDbContext = uygulamaDbContext;
         }
 
+        // filtreleme işleminde ihtimallere göre
+        public List<Sikayet> GetFilteredSikayetlerByBirimAndDurum(int birimId, int durumId)
+        {
+            // Örnek olarak, Entity Framework kullanıldığını varsayalım
+            var filteredSikayetList = _uygulamaDbContext.Sikayetler
+                .Include(s => s.Departman)
+                .Where(s => s.BirimId == birimId && s.DurumId == durumId)
+                .ToList();
+
+            return filteredSikayetList;
+        }
+
         // birime göre filtreleme işlemi
-        public List<Sikayet> GetFilteredSikayetler(int birimId)
+        public List<Sikayet> GetFilteredBirim(int birimId)
         {
             // Veritabanından ilgili birime ait sikayetleri çek
             var filteredSikayetler = _uygulamaDbContext.Sikayetler
@@ -73,5 +85,7 @@ namespace CagriMerkezi2.Models
             // Eğer başvuru koduyla eşleşen şikayet bulunamazsa null dönebilirsiniz.
             return sikayet;
         }
+
+        
     }
 }

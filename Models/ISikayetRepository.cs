@@ -3,8 +3,11 @@ namespace CagriMerkezi2.Models
 {
     public interface ISikayetRepository : IRepository<Sikayet>
     {
+        // filtreleme işleminde ihtimallere göre
+        List<Sikayet> GetFilteredSikayetlerByBirimAndDurum(int birimId, int durumId);
+
         // birime göre filtreleme işlemi
-        List<Sikayet> GetFilteredSikayetler(int birimId);
+        List<Sikayet> GetFilteredBirim(int birimId);
 
         // duruma göre filtreleme işlemi
         List<Sikayet> GetFilteredDurum(int durumId);
@@ -14,5 +17,7 @@ namespace CagriMerkezi2.Models
 
         // başvuru kodu için
         Sikayet GetByBasvuruKodu(string kod);
+
+        
     }
 }

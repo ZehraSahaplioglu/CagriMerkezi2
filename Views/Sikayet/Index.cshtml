@@ -35,12 +35,6 @@
             </select>
         </div>
         <div class="col-md-4">
-            <button id="btnFilter" class="btn btn-primary">Filtrele</button>
-        </div>
-    </div>
-
-    <div class="row mb-3">
-        <div class="col-md-4">
             <label>Durum:</label>
             <select id="selectedDurumId" class="form-select">
                 <option value="">Seçiniz:</option>
@@ -51,9 +45,10 @@
             </select>
         </div>
         <div class="col-md-4">
-            <button id="buttonFilter" class="btn btn-primary">Filtrele</button>
+            <button id="btnFilter" class="btn btn-primary">Filtrele</button>
         </div>
     </div>
+
 
     <table class="table table-bordered">
 
@@ -128,11 +123,12 @@
         $(document).ready(function () {
             $("#btnFilter").on("click", function () {
                 var selectedBirimId = $("#selectedBirimId").val();
+                var selectedDurumId = $("#selectedDurumId").val();
 
                 $.ajax({
                     url: "/Sikayet/GetFilteredSikayetler",
                     type: "GET",
-                    data: { birimId: selectedBirimId },
+                    data: { birimId: selectedBirimId, durumId: selectedDurumId },
                     success: function (result) {
                         $(".table tbody").html(result);
                     },
@@ -144,25 +140,7 @@
         });
     </script>
 
-    <script>
-        $(document).ready(function () {
-            $("#buttonFilter").on("click", function () {
-                var selectedDurumId = $("#selectedDurumId").val();
 
-                $.ajax({
-                    url: "/Sikayet/GetFilteredDurum",
-                    type: "GET",
-                    data: { durumId: selectedDurumId },
-                    success: function (result) {
-                        $(".table tbody").html(result);
-                    },
-                    error: function (error) {
-                        console.error(error);
-                    }
-                });
-            });
-        });
-    </script>
 
 </div>
 

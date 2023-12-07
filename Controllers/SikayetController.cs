@@ -79,16 +79,45 @@ namespace CagriMerkezi2.Controllers
             return View();
         }
 
+        // burada birim ve durum için filtreleme fonksiyonu oluşturuldu
+        [HttpGet]
+        public IActionResult GetFilteredSikayetler(int birimId, int durumId)
+        {
+            List<Sikayet> filteredSikayetList;
+
+            if (birimId > 0 && durumId > 0)
+            {
+                // Hem birimId hem de durumId seçiliyse
+                filteredSikayetList = _sikayetRepository.GetFilteredSikayetlerByBirimAndDurum(birimId, durumId);
+            }
+            else if (birimId > 0)
+            {
+                // Sadece birimId seçiliyse
+                filteredSikayetList = _sikayetRepository.GetFilteredBirim(birimId);
+            }
+            else if (durumId > 0)
+            {
+                // Sadece durumId seçiliyse
+                filteredSikayetList = _sikayetRepository.GetFilteredDurum(durumId);
+            }
+            else
+            {
+                // Hiçbiri seçili değilse, tüm verileri getir
+                filteredSikayetList = _sikayetRepository.GetAll(includeProps: "Departman").ToList();
+            }
+
+            return PartialView("_SikayetListPartial", filteredSikayetList);
+        }
 
         // arama motorunda birime göre filtreleme işlemi yapar
         [HttpGet]
-        public IActionResult GetFilteredSikayetler(int birimId)
+        public IActionResult GetFilteredBirim(int birimId)
         {
             List<Sikayet> filteredSikayetList;
 
             if (birimId > 0)
             {
-                filteredSikayetList = _sikayetRepository.GetFilteredSikayetler(birimId);
+                filteredSikayetList = _sikayetRepository.GetFilteredBirim(birimId);
             }
             else
             {
