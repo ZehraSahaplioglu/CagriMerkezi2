@@ -1,110 +1,131 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="tr">
+
 <head>
-
-    <title>Hoşgeldiniz | Malatya Battalgazi Belediyesi</title>
-    <meta name="description" content="Battalgazi Belediyesi - Vatandaş Başvuru">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BATTALGAZİ BELEDİYESİ</title>
-
-
+    <title>Hoşgeldiniz | Malatya Battalgazi Belediyesi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+          integrity="sha512-K56q6D3FcveTY7P63ZUnAa23PO0KNT2qP/Qw/SV2HAAjLf6HFq3J9zB4VIic9bkEmSeyj2gKGo7qFCRzV0Z6Zg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
         .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .logo {
+            width: 277px;
+            height: 192px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #008CBA;
+            text-decoration: underline;
+        }
+
+        .m-widget-28__tabs {
+            display: flex;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .m-widget-28__tab {
+            flex: 1;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 0 10px;
+        }
+
+        h1.m--font-light {
+            margin-bottom: 20px;
+            color: #008CBA;
+        }
+
+        .m-widget28__tab-item {
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
         }
 
-        .logo {
-            width: 200px;
-            height: 100px;
-            margin-right: 10px; /* Sağa boşluk eklemek için margin-right kullanılıyor */
-            order: -1; /* Sıralamayı değiştirmek için order kullanılıyor */
-        }
+            .m-widget28__tab-item span {
+                margin-left: 10px;
+                color: #333;
+            }
 
-        h1 {
-            order: 1; /* Sıralamayı değiştirmek için order kullanılıyor */
-        }
-
-        .display-6 {
-            text-decoration: underline;
-        }
-
-        .buyuk-link {
-            font-size: 40px; /* İstediğiniz boyutu burada belirleyebilirsiniz */
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-
-        /* Butonların stil ayarları */
         button {
-            padding: 10px 20px; /* Buton içerisindeki içeriği çevreleyen boşluk */
-            font-size: 16px; /* Yazı boyutu */
-            background-color: #008CBA; /* Arka plan rengi */
-            color: white; /* Yazı rengi */
-            border: none; /* Kenarlık yok */
-            border-radius: 5px; /* Köşe yuvarlama */
-            cursor: pointer; /* İmleci el işareti yap */
-            margin: 5px; /* Butonlar arasındaki boşluk */
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
         }
 
             button:hover {
-                background-color: #808080; /* Mouse hover durumunda arka plan rengi */
+                background-color: #005682;
             }
-
-            /* İkinci butonun özel stil ayarları */
-            button.special {
-                background-color: #008CBA; /* Arka plan rengi */
-                color: white; /* Yazı rengi */
-                font-weight: bold; /* Kalın yazı */
-                text-transform: uppercase; /* Yazıyı büyük harfe dönüştürme */
-            }
-
-                button.special:hover {
-                    background-color: #005780; /* Mouse hover durumunda arka plan rengi */
-                }
     </style>
-
 </head>
+
 <body>
-
     <div class="container">
-        <h1 class="display-1"><marquee>BATTALGAZİ BELEDİYESİ</marquee></h1>
         <img src="~/img/logo2.jpeg" alt="Battalgazi Belediyesi Logo" class="logo" width="200" height="100">
+
+        <div class="m-widget-28__tabs">
+            <form action="@Url.Action("EkleGuncelle","CagriMerkezi")" method="get" class="m-widget-28__tab">
+                <h1 class='m--font-light'>BAŞVURU OLUŞTUR</h1>
+                <div class='m-widget28__tab-item'>
+                    <span><i class="fas fa-pencil-alt"></i></span>
+                    <span>Tüm istek ve şikayetlerinizi iletebilirsiniz</span>
+                </div>
+                <div class='m-widget28__tab-item'>
+                    <span><i class="fas fa-bolt"></i></span>
+                    <span>Hızlı başvuru oluşturabilirsiniz</span>
+                </div>
+                <div class='m-widget28__tab-item'>
+                    <span><i class="far fa-images"></i></span>
+                    <span>Başvurunuza fotoğraf ekleyebilirsiniz</span>
+                </div>
+                <button type="submit">Başvuruyu Oluştur</button>
+            </form>
+
+            <form action="@Url.Action("BasvuruSorgula","Sikayet")" method="get" class="m-widget-28__tab">
+                <h1 class='m--font-light'>BAŞVURU SORGULA</h1>
+                <div class='m-widget28__tab-item'>
+                    <span><i class="fas fa-search"></i></span>
+                    <span>Başvuru ve telefon numarası ile sorgulama yapabilirsiniz</span>
+                </div>
+                <div class='m-widget28__tab-item'>
+                    <span><i class="fas fa-check"></i></span>
+                    <span>Başvuru durumunuzu kontrol edebilirsiniz</span>
+                </div>
+                <div class='m-widget28__tab-item'>
+                    <span><i class="fas fa-link"></i></span>
+                    <span>Başvuru linkinizi saklayıp tekrar kontrol sağlayabilirsiniz</span>
+                </div>
+                <button type="submit">Başvuruyu Sorgula</button>
+            </form>
+        </div>
     </div>
-
-    <div class="d-flex justify-content-between">
-
-        <form action="@Url.Action("EkleGuncelle","CagriMerkezi")" method="get" class="m-widget-28__tab">
-
-
-            <h1 class='m-portlet__head-text m--font-light'>   BAŞVURU OLUŞTUR          </h1>
-
-            <div class='m-widget28__tab-item'> <span></span> <span>Tüm istek ve şikayetlerinizi iletebilirsiniz</span> </div>
-            <div class='m-widget28__tab-item'> <span></span> <span>Hızlı başvuru oluşturabilirsiniz</span> </div>
-            <div class='m-widget28__tab-item'> <span></span> <span>Başvurunuza fotoğraf ekleyebilirsiniz</span> </div>
-            <button type="submit">Başvuruyu Oluştur</button>
-
-        </form>
-
-        <form action="@Url.Action("BasvuruSorgula","Sikayet")" method="get" class="m-widget-28__tab">
-
-
-
-            <h1 class='m-portlet__head-text m--font-light'>      BAŞVURU SORGULA    </h1>
-
-            <div class='m-widget28__tab-item'> <span></span> <span>Başvuru ve telefon numarası ile sorgulama yapabilirsiniz.</span> </div>
-            <div class='m-widget28__tab-item'> <span></span> <span>Başvuru durumunuzu kontrol edebilirsiniz.</span> </div>
-            <div class='m-widget28__tab-item'> <span></span> <span>Başvuru linkinizi saklayıp tekrar kontrol sağlayabilirsiniz.</span> </div>
-            <button type="submit">Başvuruyu sorgula</button>
-
-        </form>
-    </div>
-
-
 </body>
 
 </html>

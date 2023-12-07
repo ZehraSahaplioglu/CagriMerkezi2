@@ -205,6 +205,7 @@ h1 {
     background-color: #f8f9fa; /* Footer arkaplan rengi */
     padding: 0px 0; /* Footer içeriðinden içe boþluk */
     text-align: center;
+    line-height: 20px;
 }
 
 </style >
