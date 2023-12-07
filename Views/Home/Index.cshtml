@@ -1,5 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+@{
+    ViewData["Title"] = "Index";
+}
 
 <head>
     <meta charset="UTF-8">
@@ -37,16 +40,15 @@
     </div>
 
     <div class="text-center">
-        <br>
-        <br>
-
-        <a href="@Url.Action("Yonlendirme", "Home")" class="buyuk-link">Vatandaş Online Başvuru Merkezi</a>
+        <a href="@Url.Action("VatandasBasvuruMerkezi", "Home")" class="buyuk-link">Vatandaş Online Başvuru Merkezi</a>
         <br>
         <br>
         <br>
         <br>
 
-        <p style="font-size: 48px; font-style: italic; font-weight: bold; font-family: 'Comic Sans MS', cursive; color:grey ;">Çağrı Merkezi-->444 65 95 </p>
+        <p style="font-size: 48px; font-style: italic; font-weight: bold; font-family: 'Comic Sans MS', cursive; color: grey;">
+            <i class="fas fa-phone"></i> 444 65 95
+        </p>
     </div>
 
 </body>

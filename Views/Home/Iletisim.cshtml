@@ -1,8 +1,5 @@
 ﻿<!DOCTYPE html>
 <html lang="tr">
-@{
-    ViewData["Title"] = "Iletisim";
-}
 
 <head>
     <meta charset="UTF-8">
@@ -15,8 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-K56q6D3FcveTY7P63ZUnAa23PO0KNT2qP/Qw/SV2HAAjLf6HFq3J9zB4VIic9bkEmSeyj2gKGo7qFCRzV0Z6Zg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-
-        h2, p {
+        h2,
+        p {
             font-size: 36px;
         }
 
@@ -35,12 +32,13 @@
 
         .button-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             margin-top: 20px;
         }
 
         .custom-button {
-            margin: 0 10px;
+            margin: 10px 0;
             padding: 10px 20px;
             font-size: 18px;
             background-color: #333;
@@ -48,11 +46,11 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            text-decoration: none; /* Altını çizili olmasını kaldırmak için */
+            text-decoration: none;
         }
 
             .custom-button:hover {
-                text-decoration: underline; /* Butona hover yapıldığında altını çizili hale getir */
+                text-decoration: underline;
                 color: #C0C0C0;
             }
 
@@ -75,17 +73,16 @@
             }
 
                 .social-icons a[href*="facebook"] {
-                    color: #3b5998; /* Özel renk kodunu buraya ekleyin */
+                    color: #3b5998;
                 }
 
                 .social-icons a[href*="instagram"] {
-                    color: #E1306C; /* Özel renk kodunu buraya ekleyin */
+                    color: #E1306C;
                 }
 
                 .social-icons a[href*="twitter"] {
-                    color: #00aced; /* Özel renk kodunu buraya ekleyin */
+                    color: #00aced;
                 }
-
     </style>
 </head>
 
@@ -96,8 +93,10 @@
             <h2>İletişim Bilgileri</h2>
             <form>
                 <div class="button-container">
-                    <a class="custom-button" href="tel:+904446595">Telefon</a>
-                    <a class="custom-button" href="javascript:void(0)" onclick="window.open('https://www.google.com/maps?q=Üçbağlar+Mah.+Sivas+Cad.+No:48,+Battalgazi+-+MALATYA', '_blank')">Adres</a>
+                    <a class="custom-button" href="tel:+904446595"><i class="fas fa-phone"></i> 444 65 95</a>
+                    <a class="custom-button" href="javascript:void(0)" 
+                    onclick="window.open('https://www.google.com/maps?q=Üçbağlar+Mah.+Sivas+Cad.+No:48,+Battalgazi+-+MALATYA', '_blank')">
+                    <i class="fas fa-map-marker-alt"></i> Adres: Üçbağlar Mah Sivas Cad No:48 Battalgazi Malatya</a>
                 </div>
             </form>
         </div>
