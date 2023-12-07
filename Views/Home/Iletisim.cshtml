@@ -1,5 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="tr">
+@{
+    ViewData["Title"] = "Iletisim";
+}
 
 <head>
     <meta charset="UTF-8">
@@ -12,9 +15,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-K56q6D3FcveTY7P63ZUnAa23PO0KNT2qP/Qw/SV2HAAjLf6HFq3J9zB4VIic9bkEmSeyj2gKGo7qFCRzV0Z6Zg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
+
         h2, p {
             font-size: 36px;
         }
+
+        .iletisim-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .iletisim-form {
+            display: inline-block;
+            border: 2px solid #333;
+            padding: 42px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .custom-button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none; /* Altını çizili olmasını kaldırmak için */
+        }
+
+            .custom-button:hover {
+                text-decoration: underline; /* Butona hover yapıldığında altını çizili hale getir */
+                color: #C0C0C0;
+            }
 
         .social-icons {
             list-style: none;
@@ -31,17 +71,36 @@
             .social-icons a {
                 text-decoration: none;
                 color: #333;
-                font-size: 24px;
+                font-size: 60px;
             }
+
+                .social-icons a[href*="facebook"] {
+                    color: #3b5998; /* Özel renk kodunu buraya ekleyin */
+                }
+
+                .social-icons a[href*="instagram"] {
+                    color: #E1306C; /* Özel renk kodunu buraya ekleyin */
+                }
+
+                .social-icons a[href*="twitter"] {
+                    color: #00aced; /* Özel renk kodunu buraya ekleyin */
+                }
+
     </style>
 </head>
 
 <body>
 
     <div class="iletisim-container">
-        <h2>İletişim Bilgileri</h2>
-        <p>Telefon: 444 65 95</p>
-        <p>Adres: Üçbağlar Mah. Sivas Cad. No:48 / Battalgazi - MALATYA</p>
+        <div class="iletisim-form">
+            <h2>İletişim Bilgileri</h2>
+            <form>
+                <div class="button-container">
+                    <a class="custom-button" href="tel:+904446595">Telefon</a>
+                    <a class="custom-button" href="javascript:void(0)" onclick="window.open('https://www.google.com/maps?q=Üçbağlar+Mah.+Sivas+Cad.+No:48,+Battalgazi+-+MALATYA', '_blank')">Adres</a>
+                </div>
+            </form>
+        </div>
 
         <!-- Sosyal Medya İkonları -->
         <ul class="social-icons">
@@ -50,7 +109,6 @@
             <li><a href="https://www.instagram.com/BattalgaziBelTr/" target="_blank"><i class="fab fa-instagram"></i></a></li>
         </ul>
     </div>
-
 
 </body>
 

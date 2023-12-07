@@ -10,6 +10,20 @@ html {
     }
 }
 
+
+.navbar {
+    padding-top: 8px;
+    padding-bottom: 12px;
+    height: 67px;
+}
+
+    .navbar .container {
+        margin: 0;
+        padding: 0;
+        width: 100px;
+        margin: 0;
+    }
+
 .btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
@@ -40,17 +54,20 @@ body {
 
 /* Logo ve baþlýk container'ýný saða al */
 .header-container {
+    margin: 0;
+    padding: 13px 20px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     /* Saða hizala */
-    padding: 20px;
+    padding-right: 168px;
+    padding-left: 20px;
 }
 
 .logo {
-    width: 100px;
-    height: 100px;
-    margin-right: 10px;
+    width: 253px;
+    height: 203px;
+    margin-right: -24px;
 }
 
 h1 {
@@ -59,23 +76,34 @@ h1 {
     order: 1;
 }
 
+.display-1 {
+    font-weight: 700;
+    line-height: 3.2;
+    margin-right: -97px;
+}
+
 .display-6 {
     text-decoration: underline;
     color: black;
 }
 
 .buyuk-link {
-    font-size: 24px;
+    font-size: 36px;
     color: black;
     text-decoration: none;
     border: 2px solid black;
     padding: 10px;
     display: inline-block;
     margin-top: 20px;
-    /* Adjust the margin */
-    background-color: white;
+    background-color: dimgray;
     border-radius: 5px;
+    transition: background-color 0.3s ease; /* Eklenen geçiþ efekti */
 }
+
+    .buyuk-link:hover {
+        background-color: lightgray;
+        color: dimgray; /* Opsiyonel olarak yazý rengini deðiþtirme */
+    }
 
 .background-image {
     position: absolute;
@@ -95,9 +123,12 @@ h1 {
 
 .text-center {
     text-align: center;
-    padding: 20px;
+    padding: 0px;
     /* Ýstediðiniz kadar padding ekleyebilirsiniz */
 }
+
+
+
 
 .sidebar {
     position: fixed;
@@ -107,6 +138,8 @@ h1 {
     left: 0;
     overflow: hidden;
     transition: .5s;
+    margin-top: -17px;
+    /side barý nav bara yaklaþtýrdým./
 }
 
     .sidebar:hover {
@@ -124,7 +157,7 @@ h1 {
         }
 
             .sidebar ul li:hover {
-                background: blue;
+                background: #C0C0C0;
             }
 
             .sidebar ul li a {
@@ -164,6 +197,5 @@ h1 {
     width: 300px; /* Resmin geniþliði */
     height: 200px; /* Otomatik yükseklik ayarý, oranlarý korur */
 }
-
 
 </style >

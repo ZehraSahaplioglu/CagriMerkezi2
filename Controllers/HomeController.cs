@@ -27,6 +27,11 @@ namespace CagriMerkezi2.Controllers
             return View();
         }
 
+        public IActionResult SSH()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
