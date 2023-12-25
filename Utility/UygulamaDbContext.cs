@@ -25,6 +25,8 @@ namespace CagriMerkezi2.Utility
 
         public DbSet<SikayetDurum> SikayetDurums { get; set; }
 
+        public DbSet<Kullanici> Kullanicilar {  get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Birim ve Departman arasındaki one-to-many ilişkisi
@@ -79,6 +81,11 @@ namespace CagriMerkezi2.Utility
                 .WithOne(sikayet => sikayet.SikayetDurum)
                 .HasForeignKey(sikayet => sikayet.DurumId);
 
+            // Calisan ve Kullanici arasındaki one-to-many ilişkisi
+            modelBuilder.Entity<Calisan>()
+                .HasMany(calisan => calisan.KullaniciList)
+                .WithOne(kullanici => kullanici.Calisan)
+                .HasForeignKey(kullanici => kullanici.CalisanId);
 
             // identity için:
             base.OnModelCreating(modelBuilder);

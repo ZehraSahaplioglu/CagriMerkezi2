@@ -35,5 +35,7 @@ namespace CagriMerkezi2.Models
         public int DepId { get; set; }
         public Departman Departman { get; set; }
 
+        public ICollection<Kullanici> KullaniciList { get; set; }
+
     }
 }

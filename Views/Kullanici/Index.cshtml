@@ -1,0 +1,76 @@
+﻿@model List<Kullanici>
+
+<div class="container">
+
+    <div class="row pt-3 pb-4">
+
+        <div>
+
+            <h1>Kullanıcı Sayfası</h1>
+            <hr />
+
+        </div>
+
+    </div>
+
+    <table class="table table-bordered">
+
+        <thead>
+
+            <tr>
+
+                <th>Id</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>TC</th>
+                <th>Yetki</th>
+                <th>Çalıştığı Birim</th>
+                <th> </th>
+                <th> </th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            @foreach(var kullanici in Model)
+            {
+                <tr>
+
+                    <td>@kullanici.Id</td>
+                    <td>@kullanici.Ad</td>
+                    <td>@kullanici.Soyad</td>
+                    <td>@kullanici.TC</td>
+                    <td>@kullanici.Yetki</td>
+                    <td>@kullanici.Calisan.Birim.Ad</td>
+
+                    <td>
+                        <a asp-controller="Kullanici" asp-action="EkleGuncelle" asp-route-id="@kullanici.Id" type="button" 
+                            class="btn btn-success" style="width:250px">Güncelle</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Kullanici" asp-action="Sil" asp-route-id="@kullanici.Id" type="button"
+                           class="btn btn-danger" style="width:250px">Sil</a>
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+
+    </table>
+
+    <div class="row pt-3 pb-2">
+
+        <div>
+
+            <a asp-controller="Kullanici" asp-action="EkleGuncelle" class="btn btn-primary" type="button">Kullanıcı Ekle</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+

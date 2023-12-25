@@ -1,0 +1,77 @@
+﻿@model Kullanici
+
+<form method="post">
+
+    <div class="row">
+
+        <div class="col-10">
+
+            <div class="border p-3 mt-5">
+
+                <div class="row pb-3">
+
+                    <h2 class="text-primary">@(Model == null ? "Kullanıcı Ekle" : "Kullanıcı Güncelle")</h2>
+                    <hr />
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Ad" class="p-0"></label>
+                    <input asp-for="Ad" class="form-control" />
+                    <span asp-validation-for="Ad" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Soyad" class="p-0">Soyisim</label>
+                    <input asp-for="Soyad" class="form-control" />
+                    <span asp-validation-for="Soyad" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="TC" class="p-0">TC</label>
+                    <input asp-for="TC" class="form-control" placeholder="12345678901" />
+                    <span asp-validation-for="TC" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Sifre" class="p-0">Şifre</label>
+                    <input asp-for="Sifre" class="form-control" />
+                    <span asp-validation-for="Sifre" class="text-danger"></span>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label asp-for="Yetki" class="p-0">Yetki</label>
+                    <input asp-for="Yetki" class="form-control" />
+                    <span asp-validation-for="Yetki" class="text-danger"></span>
+
+                </div>
+
+
+
+                @if (Model != null)
+                {
+                    <button type="submit" class="btn btn-lg btn-secondry" style="width:250px">Güncelle</button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Ekle</button> 
+                }
+
+                <a asp-controller="Kullanici" asp-action="Index" class="btn btn-lg btn-danger" style="width:250px">Geri Dön</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
