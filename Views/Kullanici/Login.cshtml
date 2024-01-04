@@ -1,0 +1,15 @@
+﻿@model Kullanici
+
+<form asp-action="Login" method="post">
+    <div>
+        <label asp-for="TC"></label>
+        <input asp-for="TC" />
+        <span asp-validation-for="TC"></span>
+    </div>
+    <div>
+        <label asp-for="Sifre"></label>
+        <input asp-for="Sifre" />
+        <span asp-validation-for="Sifre"></span>
+    </div>
+    <button type="submit">Giriş Yap</button>
+</form>

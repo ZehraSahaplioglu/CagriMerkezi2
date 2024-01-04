@@ -47,6 +47,7 @@
                 <th>Sorumlu Departman</th>
                 <th> </th>
                 <th> </th>
+                <th> </th>
 
             </tr>
 
@@ -69,11 +70,14 @@
 
                     <td>
                         <a asp-controller="Calisan" asp-action="EkleGuncelle" asp-route-id="@calisan.Id" type="button"
-                           class="btn btn-success" style="width:250px">Güncelle</a>
+                           class="btn btn-success">Güncelle</a>
                     </td>
                     <td>
                         <a asp-controller="Calisan" asp-action="Sil" asp-route-id="@calisan.Id" type="button"
-                           class="btn btn-danger" style="width:250px">Sil</a>
+                           class="btn btn-danger">Sil</a>
+                    </td>
+                    <td>
+                        <a asp-controller="Calisan" asp-action="YetkiVer" asp-route-id="@calisan.Id" class="btn btn-primary">Yetki Ver</a>
                     </td>
 
                 </tr>

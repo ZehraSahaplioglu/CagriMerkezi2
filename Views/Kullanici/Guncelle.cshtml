@@ -10,10 +10,12 @@
 
                 <div class="row pb-3">
 
-                    <h2 class="text-primary">@(Model == null ? "Kullanıcı Ekle" : "Kullanıcı Güncelle")</h2>
+                    <h2 class="text-primary">Kullanıcı Güncelle</h2>
                     <hr />
 
                 </div>
+
+                @Html.HiddenFor(m => m.CalisanId)
 
                 <div class="mb-3">
 
@@ -40,33 +42,24 @@
                 </div>
 
                 <div class="mb-3">
-
-                    <label asp-for="Sifre" class="p-0">Şifre</label>
-                    <input asp-for="Sifre" class="form-control" />
+                    <label asp-for="Sifre" class="p-0"></label>
+                    <input asp-for="Sifre" type="password" class="form-control" />
                     <span asp-validation-for="Sifre" class="text-danger"></span>
-
                 </div>
 
                 <div class="mb-3">
-
                     <label asp-for="Yetki" class="p-0">Yetki</label>
-                    <input asp-for="Yetki" class="form-control" />
+                    <select asp-for="Yetki" asp-items="@(new SelectList(ViewBag.Roller, "Value", "Text"))" class="form-control"></select>
                     <span asp-validation-for="Yetki" class="text-danger"></span>
-
                 </div>
 
 
 
-                @if (Model != null)
-                {
-                    <button type="submit" class="btn btn-lg btn-secondry" style="width:250px">Güncelle</button>
-                }
-                else
-                {
-                    <button type="submit" class="btn btn-lg btn-primary" style="width:250px">Ekle</button> 
-                }
+                
+                <button type="submit" class="btn btn-lg btn-secondry">Güncelle</button>
+                
 
-                <a asp-controller="Kullanici" asp-action="Index" class="btn btn-lg btn-danger" style="width:250px">Geri Dön</a>
+                <a asp-controller="Kullanici" asp-action="Index" class="btn btn-lg btn-danger">Geri Dön</a>
 
             </div>
 

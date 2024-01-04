@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CagriMerkezi2.Models
 {
     public class Kullanici
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -25,6 +27,6 @@ namespace CagriMerkezi2.Models
         public string Yetki {  get; set; }
 
         public int CalisanId { get; set; }
-        public Calisan Calisan { get; set; }
+        public Calisan? Calisan { get; set; }
     }
 }

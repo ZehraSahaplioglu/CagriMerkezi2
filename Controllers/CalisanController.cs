@@ -44,6 +44,13 @@ namespace CagriMerkezi2.Controllers
             return View(objCalisanList);
         }
 
+
+        public IActionResult YetkiVer(int id)
+        {
+            return RedirectToAction("YetkiVer", "Kullanici", new { calisanid = id });
+        }
+
+
         [HttpGet]
         public IActionResult GetFilteredCalisanlar(int birimId)
         {
@@ -172,7 +179,6 @@ namespace CagriMerkezi2.Controllers
             _calisanRepository.Kaydet();
             return RedirectToAction("Index", "Calisan");
         }
-
 
 
     }
