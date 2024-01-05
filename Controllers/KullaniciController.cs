@@ -92,15 +92,6 @@ namespace CagriMerkezi2.Controllers
             });
             ViewBag.CalisanList = CalisanList;
 
-            var roller = new List<SelectListItem>
-            {
-                new SelectListItem { Value = KullaniciRolleri.Role_Admin, Text = "Admin" },
-                new SelectListItem { Value = KullaniciRolleri.Role_Calisan, Text = "Calisan" }
-            };
-
-            ViewBag.Roller = roller;
-
-            
             Kullanici? kullaniciVt = _kullaniciRepository.Get(u => u.Id == id);
             if (kullaniciVt == null)
             {
@@ -113,7 +104,7 @@ namespace CagriMerkezi2.Controllers
         [HttpPost]
         public IActionResult Guncelle(Kullanici kullanici)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _kullaniciRepository.Guncelle(kullanici);
                 _kullaniciRepository.Kaydet();
@@ -161,21 +152,30 @@ namespace CagriMerkezi2.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(Kullanici model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
                 return View(model);
+            }
 
-            // Kullanıcı doğrulama işlemi
-            var user = await _userManager.FindByNameAsync(model.TC); // TC ile kullanıcı bulma
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Sifre))
+            // Kullanıcıyı veritabanında ara
+            var user = _kullaniciRepository.Get(u => u.TC == model.TC && u.Sifre == model.Sifre);
+            if (user != null)
             {
                 // Kullanıcıyı oturuma dahil et
-                var identity = new ClaimsIdentity(IdentityConstants.ApplicationScheme);
-                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id));
-                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+                var claims = new List<Claim>
+                {
+                    
+                    new Claim(ClaimTypes.Name, user.Ad),
+                    new Claim(ClaimTypes.Surname, user.Soyad),
+                    new Claim(ClaimTypes.Role, user.Yetki)
+                };
 
-                await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme, new ClaimsPrincipal(identity));
+                var identity = new ClaimsIdentity(claims, "KullaniciIdentity");
+                var userPrincipal = new ClaimsPrincipal(new[] { identity });
 
-                return RedirectToAction("Index", "Home");
+                await HttpContext.SignInAsync(userPrincipal);
+
+                return RedirectToAction("Index", "Giris");
             }
 
             ModelState.AddModelError("", "TC Kimlik Numarası veya şifre hatalı");

@@ -23,6 +23,7 @@
                 <th>Ad</th>
                 <th>Soyad</th>
                 <th>TC</th>
+                <th>Sifre</th>
                 <th>Yetki</th>
                 <th> </th>
                 <th> </th>
@@ -41,10 +42,11 @@
                     <td>@kullanici.Ad</td>
                     <td>@kullanici.Soyad</td>
                     <td>@kullanici.TC</td>
+                    <td>****</td>
                     <td>@kullanici.Yetki</td>
 
                     <td>
-                        <a asp-controller="Kullanici" asp-action="EkleGuncelle" asp-route-id="@kullanici.Id" type="button" 
+                        <a asp-controller="Kullanici" asp-action="Guncelle" asp-route-id="@kullanici.Id" type="button" 
                             class="btn btn-success">Güncelle</a>
                     </td>
                     <td>

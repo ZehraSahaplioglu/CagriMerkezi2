@@ -36,30 +36,31 @@
                 <div class="mb-3">
 
                     <label asp-for="TC" class="p-0">TC</label>
-                    <input asp-for="TC" class="form-control" placeholder="12345678901" />
+                    <input asp-for="TC" class="form-control" />
                     <span asp-validation-for="TC" class="text-danger"></span>
 
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Sifre" class="p-0"></label>
-                    <input asp-for="Sifre" type="password" class="form-control" />
+                    <label asp-for="Sifre" class="p-0">Şifre</label>
+                    <input asp-for="Sifre" class="form-control" />
                     <span asp-validation-for="Sifre" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label asp-for="Yetki" class="p-0">Yetki</label>
-                    <select asp-for="Yetki" asp-items="@(new SelectList(ViewBag.Roller, "Value", "Text"))" class="form-control"></select>
+                    <select asp-for="Yetki" class="form-control">
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                    </select>
                     <span asp-validation-for="Yetki" class="text-danger"></span>
                 </div>
 
 
-
-                
-                <button type="submit" class="btn btn-lg btn-secondry">Güncelle</button>
+                <button type="submit" class="btn btn-primary">Güncelle</button>
                 
 
-                <a asp-controller="Kullanici" asp-action="Index" class="btn btn-lg btn-danger">Geri Dön</a>
+                <a asp-controller="Kullanici" asp-action="Index" class="btn btn-danger">Geri Dön</a>
 
             </div>
 

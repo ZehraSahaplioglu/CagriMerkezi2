@@ -1,6 +1,20 @@
 ﻿@model Kullanici
 
 <form asp-action="Login" method="post">
+    <!-- Hata Mesajları -->
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            <ul>
+                @foreach (var error in ViewData.ModelState.Values.SelectMany(modelState => modelState.Errors))
+                {
+                    <li>@error.ErrorMessage</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <!-- Form Alanları -->
     <div>
         <label asp-for="TC"></label>
         <input asp-for="TC" />
@@ -8,8 +22,9 @@
     </div>
     <div>
         <label asp-for="Sifre"></label>
-        <input asp-for="Sifre" />
+        <input asp-for="Sifre" type="password" />
         <span asp-validation-for="Sifre"></span>
     </div>
     <button type="submit">Giriş Yap</button>
 </form>
+
