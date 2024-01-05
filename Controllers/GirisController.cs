@@ -14,7 +14,19 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Index()
         {
-            return View();
+           
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (yetki == "admin" || yetki == "user")
+            {
+                
+                ViewBag.Yetki = yetki;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
         }
+        
     }
 }

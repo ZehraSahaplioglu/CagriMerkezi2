@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 
+
 <div class="container">
 
     @* <div class="row pt-3 pb-4">
@@ -13,21 +14,28 @@
 
     <div class="row">
 
-        <div class="col-md-3">
-            <a asp-controller="Birim" asp-action="Index" class="btn btn-primary">Birim</a>
-        </div>
+        <!-- Sadece Admin için Görünür -->
+        @if ((string)ViewBag.Yetki == "admin")
+        {
+            <div class="col-md-3">
+                <a asp-controller="Birim" asp-action="Index" class="btn btn-primary">Birim</a>
+            </div>
 
-        <div class="col-md-3">
-            <a asp-controller="Departman" asp-action="Index" class="btn btn-success">Departman</a>
-        </div>
+            <div class="col-md-3">
+                <a asp-controller="Departman" asp-action="Index" class="btn btn-success">Departman</a>
+            </div>
+
+            <div class="col-md-3">
+                <a asp-controller="Kullanici" asp-action="Index" class="btn btn-success">Kullanıcı</a>
+            </div>
+        }
+        
 
         <div class="col-md-3">
             <a asp-controller="Calisan" asp-action="Index" class="btn btn-primary">Çalışan</a>
         </div>
 
-        <div class="col-md-3">
-            <a asp-controller="Kullanici" asp-action="Index" class="btn btn-success">Kullanıcı</a>
-        </div>
+        
 
     </div>
 
@@ -39,9 +47,13 @@
             <a asp-controller="Sikayet" asp-action="Index" class="btn btn-success">Şikayetler</a>
         </div>
 
-        <div class="col-md-3">
-            <a asp-controller="SikayetDurum" asp-action="Index" class="btn btn-primary">Şikayet Durum</a>
-        </div>
+        <!-- Sadece Admin için Görünür -->
+        @if ((string)ViewBag.Yetki == "admin")
+        {
+            <div class="col-md-3">
+                <a asp-controller="SikayetDurum" asp-action="Index" class="btn btn-primary">Şikayet Durum</a>
+            </div>
+        }
 
         <div class="col-md-3">
             <a asp-controller="CagriMerkezi" asp-action="Index" class="btn btn-success">Çağrı Merkezi</a>

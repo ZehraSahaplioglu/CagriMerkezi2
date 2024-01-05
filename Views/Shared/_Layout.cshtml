@@ -32,45 +32,24 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Yonlendirme">Yonlendirme</a>
                         </li>
 
-                        @* <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Birim" asp-action="Index">Birim</a>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="SSH">SSH</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Departman" asp-action="Index">Departman</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Iletisim">İletişim</a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Sikayet" asp-action="Index">Sikayet</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="CagriMerkezi" asp-action="Index">Çağrı Merkezi</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="SikayetDurum" asp-action="Index">Durum Listesi</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Calisan" asp-action="Index">Çalışan</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Kullanici" asp-action="Index">Kullanıcı</a>
-                        </li> *@
 
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Giris" asp-action="Index">Giris</a>
                         </li>
-
-                        
 
                     </ul>
 
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Kullanici" asp-action="Login" style="color:white">Login</a>
                     </li>
+                    
 
 
                 </div>
@@ -80,6 +59,7 @@
 
     <nav class="sidebar">
 
+        
         <ul>
             <li>
                 <a href="@Url.Action("Index", "Home")">
@@ -88,22 +68,74 @@
                 </a>
             </li>
 
+            <!-- Sadece Admin için Görünür -->
+            @if ((string)ViewBag.Yetki == "admin")
+            {
+                <li>
+                    <a href="@Url.Action("Index", "Birim")">
+                        <span class="simge"><i class="fas fa-house-user"></i></span>
+                        <span class="baslik">Birim</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Index", "Departman")">
+                        <span class="simge"><i class="fas fa-house-user"></i></span>
+                        <span class="baslik">Departman</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Index", "SikayetDurum")">
+                        <span class="simge"><i class="fas fa-house-user"></i></span>
+                        <span class="baslik">Şikayet Durum</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="@Url.Action("Index", "Kullanici")">
+                        <span class="simge"><i class="fas fa-house-user"></i></span>
+                        <span class="baslik">Kullanıcı</span>
+                    </a>
+                </li>
+            }
+
             <li>
-                <a href="@Url.Action("SSH", "Home")">
-                    <span class="simge"><i class="fas fa-wrench"></i></span>
-                    <span class="baslik">SSH</span>
+                <a href="@Url.Action("Index", "Sikayet")">
+                    <span class="simge"><i class="fas fa-house-user"></i></span>
+                    <span class="baslik">Şikayet</span>
                 </a>
             </li>
 
             <li>
-                <a href="@Url.Action("Iletisim", "Home")" class="iletisim-link">
-                    <span class="simge"><i class="fas fa-tty"></i></span>
-                    <span class="baslik">İletişim</span>
+                <a href="@Url.Action("Index", "CagriMerkezi")">
+                    <span class="simge"><i class="fas fa-house-user"></i></span>
+                    <span class="baslik">Çağrı Merkezi</span>
                 </a>
             </li>
 
+
+
+            <li>
+                <a href="@Url.Action("Index", "Calisan")">
+                    <span class="simge"><i class="fas fa-house-user"></i></span>
+                    <span class="baslik">Çalışan</span>
+                </a>
+            </li>
+
+
+
+            <li>
+                <a href="@Url.Action("Logout", "Kullanici")">
+                    <span class="simge"><i class="fas fa-house-user"></i></span>
+                    <span class="baslik">Logout</span>
+                </a>
+            </li>
 
         </ul>
+        
+
+        
 
     </nav>
 

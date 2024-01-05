@@ -19,6 +19,7 @@ namespace CagriMerkezi2.Controllers
             return View(objBirimList);
         }
 
+
         public IActionResult Ekle()
         {
             return View();

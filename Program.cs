@@ -80,9 +80,9 @@ async Task CreateRoles(RoleManager<IdentityRole> roleManager)
     {
         await roleManager.CreateAsync(new IdentityRole(KullaniciRolleri.Role_Admin));
     }
-    if (!await roleManager.RoleExistsAsync(KullaniciRolleri.Role_Calisan))
+    if (!await roleManager.RoleExistsAsync(KullaniciRolleri.Role_User))
     {
-        await roleManager.CreateAsync(new IdentityRole(KullaniciRolleri.Role_Calisan));
+        await roleManager.CreateAsync(new IdentityRole(KullaniciRolleri.Role_User));
     }
     // Diðer rolleri de burada oluþturabilirsiniz
 }

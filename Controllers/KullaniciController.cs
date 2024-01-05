@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Security.Claims;
 
 namespace CagriMerkezi2.Controllers
@@ -33,16 +34,24 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.KulCalisanList = _calisanRepository.GetAll()
-        .Select(b => new SelectListItem
-        {
-            Text = b.Ad,
-            Value = b.Id.ToString()
-        }).ToList();
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok")
+            {
+                ViewBag.KulCalisanList = _calisanRepository.GetAll()
+                .Select(b => new SelectListItem
+                {
+                    Text = b.Ad,
+                    Value = b.Id.ToString()
+                }).ToList();
 
-            List<Kullanici> objKullaniciList = _kullaniciRepository.GetAll(includeProps: "Calisan").ToList();
-            return View(objKullaniciList);
+                List<Kullanici> objKullaniciList = _kullaniciRepository.GetAll(includeProps: "Calisan").ToList();
+                return View(objKullaniciList);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
         }
+
 
 
         public IActionResult YetkiVer(int calisanid)
@@ -152,36 +161,58 @@ namespace CagriMerkezi2.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(Kullanici model)
         {
+            string tcno = Request.Query["TC"];
+            string sifre = Request.Query["Sifre"];
+
+            
             if (ModelState.IsValid)
             {
                 return View(model);
             }
 
-            // Kullanıcıyı veritabanında ara
-            var user = _kullaniciRepository.Get(u => u.TC == model.TC && u.Sifre == model.Sifre);
-            if (user != null)
+            if(HttpContext.Session.GetString("GirisKontrol") == null && tcno == null && sifre == null)
             {
-                // Kullanıcıyı oturuma dahil et
-                var claims = new List<Claim>
+
+           
+                // Kullanıcıyı veritabanında ara
+                var user = _kullaniciRepository.Get(u => u.TC == model.TC && u.Sifre == model.Sifre);
+                if (user != null)
                 {
-                    
-                    new Claim(ClaimTypes.Name, user.Ad),
-                    new Claim(ClaimTypes.Surname, user.Soyad),
-                    new Claim(ClaimTypes.Role, user.Yetki)
-                };
+                    // Kullanıcıyı oturuma dahil et
+                    var claims = new List<Claim>
+                    {
 
-                var identity = new ClaimsIdentity(claims, "KullaniciIdentity");
-                var userPrincipal = new ClaimsPrincipal(new[] { identity });
+                        new Claim(ClaimTypes.Name, user.Ad),
+                        new Claim(ClaimTypes.Surname, user.Soyad),
+                        new Claim(ClaimTypes.Role, user.Yetki),
+                       
+                    };
 
-                await HttpContext.SignInAsync(userPrincipal);
+                    HttpContext.Session.SetString("Yetki", user.Yetki);
+                    string yetki = HttpContext.Session.GetString("Yetki");
 
-                return RedirectToAction("Index", "Giris");
+                    var identity = new ClaimsIdentity(claims, "KullaniciIdentity");
+                    var userPrincipal = new ClaimsPrincipal(new[] { identity });
+
+                    await HttpContext.SignInAsync(userPrincipal);
+
+                    return RedirectToAction("Index", "Giris");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Kullanici");
+                }
             }
 
             ModelState.AddModelError("", "TC Kimlik Numarası veya şifre hatalı");
             return View(model);
         }
 
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Kullanici");
+        }
 
     }
 }
