@@ -45,10 +45,14 @@
                 <th>Tel No</th>
                 <th>Sorumlu Birim</th>
                 <th>Sorumlu Departman</th>
-                <th> </th>
-                <th> </th>
-                <th> </th>
-
+                <!-- Sadece Admin için Görünür -->
+                @if ((string)ViewBag.Yetki == "admin")
+                {
+                    <th> </th>
+                    <th> </th>
+                    <th> </th>
+                }
+                
             </tr>
 
         </thead>
@@ -68,17 +72,22 @@
                     <td>@calisan.Birim.Ad</td>
                     <td>@calisan.Departman.Ad</td>
 
-                    <td>
-                        <a asp-controller="Calisan" asp-action="EkleGuncelle" asp-route-id="@calisan.Id" type="button"
-                           class="btn btn-success">Güncelle</a>
-                    </td>
-                    <td>
-                        <a asp-controller="Calisan" asp-action="Sil" asp-route-id="@calisan.Id" type="button"
-                           class="btn btn-danger">Sil</a>
-                    </td>
-                    <td>
-                        <a asp-controller="Calisan" asp-action="YetkiVer" asp-route-id="@calisan.Id" class="btn btn-primary">Yetki Ver</a>
-                    </td>
+                    <!-- Sadece Admin için Görünür -->
+                    @if ((string)ViewBag.Yetki == "admin")
+                    {
+                        <td>
+                            <a asp-controller="Calisan" asp-action="EkleGuncelle" asp-route-id="@calisan.Id" type="button"
+                               class="btn btn-success">Güncelle</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Calisan" asp-action="Sil" asp-route-id="@calisan.Id" type="button"
+                               class="btn btn-danger">Sil</a>
+                        </td>
+                        <td>
+                            <a asp-controller="Calisan" asp-action="YetkiVer" asp-route-id="@calisan.Id" class="btn btn-primary">Yetki Ver</a>
+                        </td>
+                    }
+                    
 
                 </tr>
             }
@@ -89,11 +98,13 @@
 
     <div class="row pt-3 pb-2">
 
-        <div>
-
-            <a asp-controller="Calisan" asp-action="EkleGuncelle" class="btn btn-lg btn-primary" type="button">Çalışan Ekle</a>
-
-        </div>
+        <!-- Sadece Admin için Görünür -->
+        @if ((string)ViewBag.Yetki == "admin")
+        {
+            <div>
+                <a asp-controller="Calisan" asp-action="EkleGuncelle" class="btn btn-lg btn-primary" type="button">Çalışan Ekle</a>
+            </div>
+        }
 
     </div>
 

@@ -34,6 +34,8 @@ namespace CagriMerkezi2.Controllers
         public IActionResult Index()
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 ViewBag.BrCalisanList = _birimRepository.GetAll()
@@ -53,10 +55,13 @@ namespace CagriMerkezi2.Controllers
         }
 
 
+
         public IActionResult YetkiVer(int id)
         {
             string yetki = HttpContext.Session.GetString("Yetki");
-            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            ViewBag.Yetki = yetki;
+
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin")
             {
                 return RedirectToAction("YetkiVer", "Kullanici", new { calisanid = id });
             }
@@ -89,7 +94,9 @@ namespace CagriMerkezi2.Controllers
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {
             string yetki = HttpContext.Session.GetString("Yetki");
-            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            ViewBag.Yetki = yetki;
+
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin")
             {
                 IEnumerable<SelectListItem> BirimCalisanList = _birimRepository.GetAll().Select(b => new SelectListItem
                 {
@@ -182,7 +189,9 @@ namespace CagriMerkezi2.Controllers
         public IActionResult Sil(int? id)
         {
             string yetki = HttpContext.Session.GetString("Yetki");
-            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            ViewBag.Yetki = yetki;
+
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin")
             {
                 if (id == null || id == 0)
                 {

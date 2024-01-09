@@ -43,6 +43,8 @@ namespace CagriMerkezi2.Controllers
         public IActionResult Index()
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 return View();
@@ -54,9 +56,12 @@ namespace CagriMerkezi2.Controllers
         }
 
 
+
         public IActionResult GelenSikayet()
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 List<CagriMerkezi> objCagriList = _cagriMerkeziRepository.GetAll().ToList();
@@ -67,6 +72,7 @@ namespace CagriMerkezi2.Controllers
                 return RedirectToAction("Login", "Kullanici");
             }
         }
+
 
 
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
@@ -265,9 +271,13 @@ namespace CagriMerkezi2.Controllers
             return uniqueCode;
         }
 
+
+
         public IActionResult Sil(int? id)
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 if (id == null || id == 0)
@@ -287,8 +297,8 @@ namespace CagriMerkezi2.Controllers
             }
         }
 
-        [HttpPost, ActionName("Sil")]
 
+        [HttpPost, ActionName("Sil")]
         public IActionResult SilPOST(int? id)
         {
             CagriMerkezi? cagri = _cagriMerkeziRepository.Get(u => u.Id == id);

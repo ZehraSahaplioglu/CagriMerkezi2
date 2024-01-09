@@ -16,6 +16,8 @@ namespace CagriMerkezi2.Controllers
         {
 
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 

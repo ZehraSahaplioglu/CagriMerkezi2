@@ -17,6 +17,8 @@ namespace CagriMerkezi2.Controllers
         public IActionResult Index()
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 List<SikayetDurum> objDurumList = _sikayetDurumRepository.GetAll().ToList();
@@ -32,6 +34,8 @@ namespace CagriMerkezi2.Controllers
         public IActionResult Ekle()
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 return View();
@@ -59,6 +63,8 @@ namespace CagriMerkezi2.Controllers
         public IActionResult Guncelle(int? id)
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 if (id == null || id == 0)
@@ -95,6 +101,8 @@ namespace CagriMerkezi2.Controllers
         public IActionResult Sil(int? id)
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 if (id == null || id == 0)

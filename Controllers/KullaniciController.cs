@@ -35,6 +35,8 @@ namespace CagriMerkezi2.Controllers
         public IActionResult Index()
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 ViewBag.KulCalisanList = _calisanRepository.GetAll()

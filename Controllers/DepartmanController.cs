@@ -20,6 +20,8 @@ namespace CagriMerkezi2.Controllers
         public IActionResult Index()
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 ViewBag.BrDepList = _birimRepository.GetAll()
@@ -62,6 +64,8 @@ namespace CagriMerkezi2.Controllers
         public IActionResult EkleGuncelle(int? id)
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 IEnumerable<SelectListItem> BirimList = _birimRepository.GetAll().Select(i => new SelectListItem
@@ -118,6 +122,8 @@ namespace CagriMerkezi2.Controllers
         public IActionResult Sil(int? id)
         {
             string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 if (id == null || id == 0)
