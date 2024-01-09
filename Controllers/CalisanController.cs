@@ -33,21 +33,38 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.BrCalisanList = _birimRepository.GetAll()
-        .Select(b => new SelectListItem
-        {
-            Text = b.Ad,
-            Value = b.Id.ToString()
-        }).ToList();
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            {
+                ViewBag.BrCalisanList = _birimRepository.GetAll()
+                .Select(b => new SelectListItem
+                {
+                    Text = b.Ad,
+                    Value = b.Id.ToString()
+                }).ToList();
 
-            List<Calisan> objCalisanList = _calisanRepository.GetAll(includeProps: "Departman").ToList();
-            return View(objCalisanList);
+                List<Calisan> objCalisanList = _calisanRepository.GetAll(includeProps: "Departman").ToList();
+                return View(objCalisanList);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
         }
 
 
         public IActionResult YetkiVer(int id)
         {
-            return RedirectToAction("YetkiVer", "Kullanici", new { calisanid = id });
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            {
+                return RedirectToAction("YetkiVer", "Kullanici", new { calisanid = id });
+            }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
+            
         }
 
 
@@ -68,52 +85,63 @@ namespace CagriMerkezi2.Controllers
             return PartialView("_CalisanListPartial", filteredCalisanList);
         }
 
+
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {
-            IEnumerable<SelectListItem> BirimCalisanList = _birimRepository.GetAll().Select(b => new SelectListItem
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
-                Text = b.Ad,
-                Value = b.Id.ToString()
-            });
-            ViewBag.BirimCalisanList = BirimCalisanList;
+                IEnumerable<SelectListItem> BirimCalisanList = _birimRepository.GetAll().Select(b => new SelectListItem
+                {
+                    Text = b.Ad,
+                    Value = b.Id.ToString()
+                });
+                ViewBag.BirimCalisanList = BirimCalisanList;
 
-            // Seçilen birim ID'sini kullanarak sadece o birime ait departmanları al
-            if (selectedBirimId.HasValue)
-            {
-                ViewBag.DepCalisanList = _departmanRepository
-                    .GetDepartmentsByBirimId(selectedBirimId.Value)
-                    .Select(d => new SelectListItem
+                // Seçilen birim ID'sini kullanarak sadece o birime ait departmanları al
+                if (selectedBirimId.HasValue)
+                {
+                    ViewBag.DepCalisanList = _departmanRepository
+                        .GetDepartmentsByBirimId(selectedBirimId.Value)
+                        .Select(d => new SelectListItem
+                        {
+                            Text = d.Ad,
+                            Value = d.Id.ToString()
+                        });
+                }
+                else
+                {
+                    // Eğer bir birim seçilmemişse, tüm departmanları getir
+                    IEnumerable<SelectListItem> DepCalisanList = _departmanRepository.GetAll().Select(d => new SelectListItem
                     {
                         Text = d.Ad,
                         Value = d.Id.ToString()
                     });
-            }
-            else
-            {
-                // Eğer bir birim seçilmemişse, tüm departmanları getir
-                IEnumerable<SelectListItem> DepCalisanList = _departmanRepository.GetAll().Select(d => new SelectListItem
-                {
-                    Text = d.Ad,
-                    Value = d.Id.ToString()
-                });
-                ViewBag.DepCalisanList = DepCalisanList;
-            }
-
-            if (id == null || id == 0)
-            {
-                return View();
-            }
-            else
-            {
-                Calisan? calisanVt = _calisanRepository.Get(u => u.Id == id);
-                if (calisanVt == null)
-                {
-                    return NotFound();
+                    ViewBag.DepCalisanList = DepCalisanList;
                 }
 
-                return View(calisanVt);
+                if (id == null || id == 0)
+                {
+                    return View();
+                }
+                else
+                {
+                    Calisan? calisanVt = _calisanRepository.Get(u => u.Id == id);
+                    if (calisanVt == null)
+                    {
+                        return NotFound();
+                    }
+
+                    return View(calisanVt);
+                }
             }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
+
         }
+
 
         [HttpGet]
         public IActionResult GetDepartmentsByBirimId(int birimId)
@@ -127,7 +155,6 @@ namespace CagriMerkezi2.Controllers
 
             return Json(depCalisanList);
         }
-
 
 
         [HttpPost]
@@ -154,20 +181,29 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Sil(int? id)
         {
-            if (id == null || id == 0)
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
-                return NotFound();
+                if (id == null || id == 0)
+                {
+                    return NotFound();
+                }
+                Calisan? calisanVt = _calisanRepository.Get(u => u.Id == id);
+                if (calisanVt == null)
+                {
+                    return NotFound();
+                }
+                return View(calisanVt);
             }
-            Calisan? calisanVt = _calisanRepository.Get(u => u.Id == id);
-            if (calisanVt == null)
+            else
             {
-                return NotFound();
+                return RedirectToAction("Login", "Kullanici");
             }
-            return View(calisanVt);
+   
         }
 
-        [HttpPost, ActionName("Sil")]
 
+        [HttpPost, ActionName("Sil")]
         public IActionResult SilPOST(int? id)
         {
             Calisan? calisan = _calisanRepository.Get(u => u.Id == id);

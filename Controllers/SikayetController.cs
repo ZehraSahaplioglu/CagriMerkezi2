@@ -40,23 +40,33 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.BrSikayetList = _birimRepository.GetAll()
-        .Select(b => new SelectListItem
-        {
-            Text = b.Ad,
-            Value = b.Id.ToString()
-        }).ToList();
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            {
+                ViewBag.BrSikayetList = _birimRepository.GetAll()
+                .Select(b => new SelectListItem
+                {
+                    Text = b.Ad,
+                    Value = b.Id.ToString()
+                }).ToList();
 
-            ViewBag.DrmSikayetList = _sikayetDurumRepository.GetAll()
-        .Select(b => new SelectListItem
-        {
-            Text = b.Ad,
-            Value = b.Id.ToString()
-        }).ToList();
+                ViewBag.DrmSikayetList = _sikayetDurumRepository.GetAll()
+                .Select(b => new SelectListItem
+                {
+                    Text = b.Ad,
+                    Value = b.Id.ToString()
+                }).ToList();
 
-            List<Sikayet> objSikayetList = _sikayetRepository.GetAll(includeProps: "Departman").ToList();
-            return View(objSikayetList);
+                List<Sikayet> objSikayetList = _sikayetRepository.GetAll(includeProps: "Departman").ToList();
+                return View(objSikayetList);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
+
         }
+
 
         public IActionResult BasvuruSorgula(string kod) 
         {
@@ -78,6 +88,7 @@ namespace CagriMerkezi2.Controllers
             }
             return View();
         }
+
 
         // burada birim ve durum için filtreleme fonksiyonu oluşturuldu
         [HttpGet]
@@ -109,6 +120,7 @@ namespace CagriMerkezi2.Controllers
             return PartialView("_SikayetListPartial", filteredSikayetList);
         }
 
+
         // arama motorunda birime göre filtreleme işlemi yapar
         [HttpGet]
         public IActionResult GetFilteredBirim(int birimId)
@@ -126,6 +138,7 @@ namespace CagriMerkezi2.Controllers
 
             return PartialView("_SikayetListPartial", filteredSikayetList);
         }
+
 
         // arama motorunda duruma göre filtreleme işlemi yapar
         [HttpGet]
@@ -145,60 +158,70 @@ namespace CagriMerkezi2.Controllers
             return PartialView("_SikayetListPartial", filteredSikayetDrmList);
         }
 
+
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {
-
-            IEnumerable<SelectListItem> DurumSikayetList = _sikayetDurumRepository.GetAll().Select(b => new SelectListItem
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
-                Text = b.Ad,
-                Value = b.Id.ToString()
-            });
-            ViewBag.DurumSikayetList = DurumSikayetList;
+                IEnumerable<SelectListItem> DurumSikayetList = _sikayetDurumRepository.GetAll().Select(b => new SelectListItem
+                {
+                    Text = b.Ad,
+                    Value = b.Id.ToString()
+                });
+                ViewBag.DurumSikayetList = DurumSikayetList;
 
-            IEnumerable<SelectListItem> BirimSikayetList = _birimRepository.GetAll().Select(b => new SelectListItem
-            {
-                Text = b.Ad,
-                Value = b.Id.ToString()
-            });
-            ViewBag.BirimSikayetList = BirimSikayetList;
+                IEnumerable<SelectListItem> BirimSikayetList = _birimRepository.GetAll().Select(b => new SelectListItem
+                {
+                    Text = b.Ad,
+                    Value = b.Id.ToString()
+                });
+                ViewBag.BirimSikayetList = BirimSikayetList;
 
-            // Seçilen birim ID'sini kullanarak sadece o birime ait departmanları al
-            if (selectedBirimId.HasValue)
-            {
-                ViewBag.DepSikayetList = _departmanRepository
-                    .GetDepartmentsByBirimId(selectedBirimId.Value)
-                    .Select(d => new SelectListItem
+                // Seçilen birim ID'sini kullanarak sadece o birime ait departmanları al
+                if (selectedBirimId.HasValue)
+                {
+                    ViewBag.DepSikayetList = _departmanRepository
+                        .GetDepartmentsByBirimId(selectedBirimId.Value)
+                        .Select(d => new SelectListItem
+                        {
+                            Text = d.Ad,
+                            Value = d.Id.ToString()
+                        });
+                }
+                else
+                {
+                    // Eğer bir birim seçilmemişse, tüm departmanları getir
+                    IEnumerable<SelectListItem> DepSikayetList = _departmanRepository.GetAll().Select(d => new SelectListItem
                     {
                         Text = d.Ad,
                         Value = d.Id.ToString()
                     });
-            }
-            else
-            {
-                // Eğer bir birim seçilmemişse, tüm departmanları getir
-                IEnumerable<SelectListItem> DepSikayetList = _departmanRepository.GetAll().Select(d => new SelectListItem
-                {
-                    Text = d.Ad,
-                    Value = d.Id.ToString()
-                });
-                ViewBag.DepSikayetList = DepSikayetList;
-            }
-
-            if (id == null || id == 0)
-            {
-                return View();
-            }
-            else
-            {
-                Sikayet? sikayetVt = _sikayetRepository.Get(u => u.Id == id);
-                if (sikayetVt == null)
-                {
-                    return NotFound();
+                    ViewBag.DepSikayetList = DepSikayetList;
                 }
 
-                return View(sikayetVt);
+                if (id == null || id == 0)
+                {
+                    return View();
+                }
+                else
+                {
+                    Sikayet? sikayetVt = _sikayetRepository.Get(u => u.Id == id);
+                    if (sikayetVt == null)
+                    {
+                        return NotFound();
+                    }
+
+                    return View(sikayetVt);
+                }
             }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
+
         }
+
 
         // seçilen birime göre departmanı getirir
         [HttpGet]
@@ -213,6 +236,7 @@ namespace CagriMerkezi2.Controllers
 
             return Json(depSikayetList);
         }
+
 
         [HttpPost]
         public IActionResult EkleGuncelle(Sikayet sikayet, IFormFile? file)
@@ -247,6 +271,7 @@ namespace CagriMerkezi2.Controllers
             return View();
         }
 
+
         // başvuru sorgulada kullanılacak olan uiq kod oluşturulması
         private string GenerateUniqueCode()
         {
@@ -255,22 +280,31 @@ namespace CagriMerkezi2.Controllers
             return uniqueCode;
         }
 
+
         public IActionResult Sil(int? id)
         {
-            if (id == null || id == 0)
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
-                return NotFound();
+                if (id == null || id == 0)
+                {
+                    return NotFound();
+                }
+                Sikayet? sikayetVt = _sikayetRepository.Get(u => u.Id == id);
+                if (sikayetVt == null)
+                {
+                    return NotFound();
+                }
+                return View(sikayetVt);
             }
-            Sikayet? sikayetVt = _sikayetRepository.Get(u => u.Id == id);
-            if(sikayetVt == null)
+            else
             {
-                return NotFound();
+                return RedirectToAction("Login", "Kullanici");
             }
-            return View(sikayetVt);
         }
 
-        [HttpPost, ActionName("Sil")]
 
+        [HttpPost, ActionName("Sil")]
         public IActionResult SilPOST(int? id)
         {
             Sikayet? sikayet = _sikayetRepository.Get(u =>u.Id == id);

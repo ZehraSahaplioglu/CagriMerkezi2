@@ -13,16 +13,35 @@ namespace CagriMerkezi2.Controllers
             _sikayetDurumRepository = context;
         }
 
+
         public IActionResult Index()
         {
-            List<SikayetDurum> objDurumList = _sikayetDurumRepository.GetAll().ToList();
-            return View(objDurumList);
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            {
+                List<SikayetDurum> objDurumList = _sikayetDurumRepository.GetAll().ToList();
+                return View(objDurumList);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
         }
+
 
         public IActionResult Ekle()
         {
-            return View();
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
         }
+
 
         [HttpPost]
         public IActionResult Ekle(SikayetDurum sikayetDurum)
@@ -36,18 +55,27 @@ namespace CagriMerkezi2.Controllers
             return View();
         }
 
+
         public IActionResult Guncelle(int? id)
         {
-            if (id == null || id == 0)
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
-                return NotFound();
+                if (id == null || id == 0)
+                {
+                    return NotFound();
+                }
+                SikayetDurum? sikayetDurumVt = _sikayetDurumRepository.Get(u => u.Id == id);
+                if (sikayetDurumVt == null)
+                {
+                    return NotFound();
+                }
+                return View(sikayetDurumVt);
             }
-            SikayetDurum? sikayetDurumVt = _sikayetDurumRepository.Get(u => u.Id == id);
-            if (sikayetDurumVt == null)
+            else
             {
-                return NotFound();
+                return RedirectToAction("Login", "Kullanici");
             }
-            return View(sikayetDurumVt);
         }
 
 
@@ -63,19 +91,29 @@ namespace CagriMerkezi2.Controllers
             return View();
         }
 
+
         public IActionResult Sil(int? id)
         {
-            if (id == null || id == 0)
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
-                return NotFound();
+                if (id == null || id == 0)
+                {
+                    return NotFound();
+                }
+                SikayetDurum? sikayetDurumVt = _sikayetDurumRepository.Get(u => u.Id == id);
+                if (sikayetDurumVt == null)
+                {
+                    return NotFound();
+                }
+                return View(sikayetDurumVt);
             }
-            SikayetDurum? sikayetDurumVt = _sikayetDurumRepository.Get(u => u.Id == id);
-            if (sikayetDurumVt == null)
+            else
             {
-                return NotFound();
+                return RedirectToAction("Login", "Kullanici");
             }
-            return View(sikayetDurumVt);
         }
+
 
         [HttpPost, ActionName("Sil")]
         public IActionResult SilPOST(int? id)

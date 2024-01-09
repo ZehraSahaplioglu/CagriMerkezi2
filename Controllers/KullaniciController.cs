@@ -34,7 +34,8 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("GirisKontrol") == "ok")
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
                 ViewBag.KulCalisanList = _calisanRepository.GetAll()
                 .Select(b => new SelectListItem
@@ -51,7 +52,6 @@ namespace CagriMerkezi2.Controllers
                 return RedirectToAction("Login", "Kullanici");
             }
         }
-
 
 
         public IActionResult YetkiVer(int calisanid)
@@ -77,6 +77,7 @@ namespace CagriMerkezi2.Controllers
 
             return View(mevcutKullanici); // Burada modeli view'a geçiriyoruz
         }
+
 
         [HttpPost]
         public IActionResult YetkiVer(Kullanici kullanici)
@@ -110,6 +111,7 @@ namespace CagriMerkezi2.Controllers
             
         }
 
+
         [HttpPost]
         public IActionResult Guncelle(Kullanici kullanici)
         {
@@ -138,6 +140,7 @@ namespace CagriMerkezi2.Controllers
             return View(kullaniciVt);
         }
 
+
         [HttpPost, ActionName("Sil")]
         public IActionResult SilPOST(int? id)
         {
@@ -157,6 +160,7 @@ namespace CagriMerkezi2.Controllers
         {
             return View();
         }
+
 
         [HttpPost]
         public async Task<IActionResult> Login(Kullanici model)
@@ -207,6 +211,7 @@ namespace CagriMerkezi2.Controllers
             ModelState.AddModelError("", "TC Kimlik Numarası veya şifre hatalı");
             return View(model);
         }
+
 
         public IActionResult Logout()
         {

@@ -2,6 +2,19 @@
 
 @model List<Sikayet>
 
+@{
+    // TempData içerisindeki "Mesaj"ı al
+    string mesaj = TempData["Mesaj"] as string;
+}
+
+@if (!string.IsNullOrEmpty(mesaj))
+{
+    <div class="alert alert-success mt-3">
+        @mesaj
+    </div>
+}
+
+
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <div class="container">

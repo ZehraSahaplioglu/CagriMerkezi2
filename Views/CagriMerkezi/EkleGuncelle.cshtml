@@ -2,6 +2,7 @@
 
 @model CagriMerkezi
 
+
 <form method="post" action="EkleGuncelle"  enctype="multipart/form-data">
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -78,26 +79,33 @@
 
                 </div>
 
-                <div class="mb-3">
-                    <label asp-for="DurumId" class="p-0">Durum:</label>
-                    <select id="DurumId" name="DurumId" asp-items="ViewBag.DurumCagriList" class="form-select">
-                        <option value="">Seçiniz:</option>
-                    </select>
-                </div>
+                <!-- Sadece Admin için Görünür -->
+                @if ((string)ViewBag.Yetki == "admin" || (string)ViewBag.Yetki == "user")
+                {
+                    <div class="mb-3">
+                        <label asp-for="DurumId" class="p-0">Durum:</label>
+                        <select id="DurumId" name="DurumId" asp-items="ViewBag.DurumCagriList" class="form-select">
+                            <option value="">Seçiniz:</option>
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label asp-for="BirimId" class="p-0">Sorumlu Birim:</label>
-                    <select id="BirimId" name="BirimId" asp-items="ViewBag.BirimCagriList" class="form-select">
-                        <option value="">Seçiniz:</option>
-                    </select>
-                </div>
+                    <div class="mb-3">
+                        <label asp-for="BirimId" class="p-0">Sorumlu Birim:</label>
+                        <select id="BirimId" name="BirimId" asp-items="ViewBag.BirimCagriList" class="form-select">
+                            <option value="">Seçiniz:</option>
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label asp-for="DepId">Departman:</label>
-                    <select id="DepId" name="DepId" class="form-control">
-                        <option value="">Seçiniz:</option>
-                    </select>
-                </div>
+                    <div class="mb-3">
+                        <label asp-for="DepId">Departman:</label>
+                        <select id="DepId" name="DepId" class="form-control">
+                            <option value="">Seçiniz:</option>
+                        </select>
+                    </div>
+                }
+
+                
+                
 
                 <div class="mb-3">
 

@@ -15,14 +15,33 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Index()
         {
-            List<Birim> objBirimList = _birimRepository.GetAll().ToList();
-            return View(objBirimList);
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            {
+
+                List<Birim> objBirimList = _birimRepository.GetAll().ToList();
+                return View(objBirimList);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
+            
         }
 
 
         public IActionResult Ekle()
         {
-            return View();
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
+            
         }
 
         [HttpPost]
@@ -39,16 +58,24 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Guncelle(int? id)
         {
-            if(id==null || id == 0)
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
-                return NotFound();
+                if (id == null || id == 0)
+                {
+                    return NotFound();
+                }
+                Birim? birimVt = _birimRepository.Get(u => u.Id == id);
+                if (birimVt == null)
+                {
+                    return NotFound();
+                }
+                return View(birimVt);
             }
-            Birim? birimVt = _birimRepository.Get(u=>u.Id == id);
-            if (birimVt == null)
+            else
             {
-                return NotFound();
+                return RedirectToAction("Login", "Kullanici");
             }
-            return View(birimVt);
         }
 
 
@@ -66,16 +93,24 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Sil(int? id)
         {
-            if(id == null || id == 0)
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
-                return NotFound();
+                if (id == null || id == 0)
+                {
+                    return NotFound();
+                }
+                Birim? birimVt = _birimRepository.Get(u => u.Id == id);
+                if (birimVt == null)
+                {
+                    return NotFound();
+                }
+                return View(birimVt);
             }
-            Birim? birimVt = _birimRepository.Get(u => u.Id == id);
-            if(birimVt == null)
+            else
             {
-                return NotFound();
+                return RedirectToAction("Login", "Kullanici");
             }
-            return View(birimVt);
         }
 
         [HttpPost, ActionName("Sil")]

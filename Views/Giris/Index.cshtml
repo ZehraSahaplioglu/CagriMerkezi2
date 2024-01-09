@@ -24,18 +24,25 @@
             <div class="col-md-3">
                 <a asp-controller="Departman" asp-action="Index" class="btn btn-success">Departman</a>
             </div>
-
-            <div class="col-md-3">
-                <a asp-controller="Kullanici" asp-action="Index" class="btn btn-success">Kullanıcı</a>
-            </div>
         }
         
+    </div>
+
+    </br>
+
+    <div class="row">
 
         <div class="col-md-3">
-            <a asp-controller="Calisan" asp-action="Index" class="btn btn-primary">Çalışan</a>
+            <a asp-controller="Calisan" asp-action="Index" class="btn btn-success">Çalışan</a>
         </div>
 
-        
+        <!-- Sadece Admin için Görünür -->
+        @if ((string)ViewBag.Yetki == "admin")
+        {
+            <div class="col-md-3">
+                <a asp-controller="Kullanici" asp-action="Index" class="btn btn-primary">Kullanıcı</a>
+            </div>
+        }
 
     </div>
 
@@ -44,19 +51,19 @@
     <div class="row">
 
         <div class="col-md-3">
-            <a asp-controller="Sikayet" asp-action="Index" class="btn btn-success">Şikayetler</a>
+            <a asp-controller="Sikayet" asp-action="Index" class="btn btn-primary">Şikayetler</a>
         </div>
 
         <!-- Sadece Admin için Görünür -->
         @if ((string)ViewBag.Yetki == "admin")
         {
             <div class="col-md-3">
-                <a asp-controller="SikayetDurum" asp-action="Index" class="btn btn-primary">Şikayet Durum</a>
+                <a asp-controller="SikayetDurum" asp-action="Index" class="btn btn-success">Şikayet Durum</a>
             </div>
         }
 
         <div class="col-md-3">
-            <a asp-controller="CagriMerkezi" asp-action="Index" class="btn btn-success">Çağrı Merkezi</a>
+            <a asp-controller="CagriMerkezi" asp-action="Index" class="btn btn-primary">Çağrı Merkezi</a>
         </div>
 
     </div>

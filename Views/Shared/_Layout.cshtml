@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,7 +14,9 @@
 
     <link rel="stylesheet" href="site.css" />
 </head>
+
 <body>
+
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -21,6 +25,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
 
@@ -29,7 +34,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Yonlendirme">Yonlendirme</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Yonlendirme">Yönlendirme</a>
                         </li>
 
                         <li class="nav-item">
@@ -40,104 +45,114 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Iletisim">İletişim</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Giris" asp-action="Index">Giris</a>
-                        </li>
+                        <!-- Yetki "admin" ya da "user" ise görüntüle -->
+                        @if ((string)ViewBag.Yetki == "admin" || (string)ViewBag.Yetki == "user")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Giris" asp-action="Index">Dashboard</a>
+                            </li>
+                        }
+
+
 
                     </ul>
 
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Kullanici" asp-action="Login" style="color:white">Login</a>
                     </li>
-                    
-
-
+                 
                 </div>
+
             </div>
         </nav>
     </header>
 
-    <nav class="sidebar">
+    <!-- Yetki "admin" ya da "user" ise görüntüle -->
+    @if ((string)ViewBag.Yetki == "admin" || (string)ViewBag.Yetki == "user")
+    {
+        <nav class="sidebar">
 
-        
-        <ul>
-            <li>
-                <a href="@Url.Action("Index", "Home")">
-                    <span class="simge"><i class="fas fa-house-user"></i></span>
-                    <span class="baslik">Ana Sayfa</span>
-                </a>
-            </li>
-
-            <!-- Sadece Admin için Görünür -->
-            @if ((string)ViewBag.Yetki == "admin")
-            {
+            <ul>
                 <li>
-                    <a href="@Url.Action("Index", "Birim")">
+                    <a href="@Url.Action("Index", "Giris")">
                         <span class="simge"><i class="fas fa-house-user"></i></span>
-                        <span class="baslik">Birim</span>
+                        <span class="baslik">Dashboard</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="@Url.Action("Index", "Departman")">
-                        <span class="simge"><i class="fas fa-house-user"></i></span>
-                        <span class="baslik">Departman</span>
+                    <a href="@Url.Action("Index", "Sikayet")">
+                        <span class="simge"><i class="fas fa-indent"></i></span>
+                        <span class="baslik">Şikayetler</span>
+                    </a>
+                </li>
+
+                <!-- Sadece Admin için Görünür -->
+                @if ((string)ViewBag.Yetki == "admin")
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "SikayetDurum")">
+                            <span class="simge"><i class="fas fa-industry"></i></span>
+                            <span class="baslik">Şikayet Durumları</span>
+                        </a>
+                    </li>
+                }
+
+                <li>
+                    <a href="@Url.Action("Index", "CagriMerkezi")">
+                        <span class="simge"><i class="fas fa-headset"></i></span>
+                        <span class="baslik">Çağrı Merkezi</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="@Url.Action("Index", "SikayetDurum")">
-                        <span class="simge"><i class="fas fa-house-user"></i></span>
-                        <span class="baslik">Şikayet Durum</span>
+                    <a href="@Url.Action("Index", "Calisan")">
+                        <span class="simge"><i class="fas fa-users"></i></span>
+                        <span class="baslik">Çalışanlar</span>
                     </a>
                 </li>
+
+                <!-- Sadece Admin için Görünür -->
+                @if ((string)ViewBag.Yetki == "admin")
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "Kullanici")">
+                            <span class="simge"><i class="fas fa-user"></i></span>
+                            <span class="baslik">Kullanıcılar</span>
+                        </a>
+                    </li>
+                }
+
+                <!-- Sadece Admin için Görünür -->
+                @if ((string)ViewBag.Yetki == "admin")
+                {
+                    <li>
+                        <a href="@Url.Action("Index", "Birim")">
+                            <span class="simge"><i class="fas fa-building"></i></span>
+                            <span class="baslik">Birim</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="@Url.Action("Index", "Departman")">
+                            <span class="simge"><i class="fas fa-city"></i></span>
+                            <span class="baslik">Departman</span>
+                        </a>
+                    </li>
+                }
 
                 <li>
-                    <a href="@Url.Action("Index", "Kullanici")">
-                        <span class="simge"><i class="fas fa-house-user"></i></span>
-                        <span class="baslik">Kullanıcı</span>
+                    <a href="@Url.Action("Logout", "Kullanici")">
+                        <span class="simge">-></span>
+                        <span class="baslik">Logout</span>
                     </a>
                 </li>
-            }
 
-            <li>
-                <a href="@Url.Action("Index", "Sikayet")">
-                    <span class="simge"><i class="fas fa-house-user"></i></span>
-                    <span class="baslik">Şikayet</span>
-                </a>
-            </li>
+            </ul>
 
-            <li>
-                <a href="@Url.Action("Index", "CagriMerkezi")">
-                    <span class="simge"><i class="fas fa-house-user"></i></span>
-                    <span class="baslik">Çağrı Merkezi</span>
-                </a>
-            </li>
-
-
-
-            <li>
-                <a href="@Url.Action("Index", "Calisan")">
-                    <span class="simge"><i class="fas fa-house-user"></i></span>
-                    <span class="baslik">Çalışan</span>
-                </a>
-            </li>
-
-
-
-            <li>
-                <a href="@Url.Action("Logout", "Kullanici")">
-                    <span class="simge"><i class="fas fa-house-user"></i></span>
-                    <span class="baslik">Logout</span>
-                </a>
-            </li>
-
-        </ul>
-        
-
-        
-
-    </nav>
+        </nav>
+    }
+    
 
     <div class="container">
         <main role="main" class="pb-3">

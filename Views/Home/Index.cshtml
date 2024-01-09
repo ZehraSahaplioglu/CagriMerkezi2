@@ -4,6 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
+@{
+    // TempData içerisindeki "Mesaj"ı al
+    string mesaj = TempData["Mesaj"] as string;
+}
+
+@if (!string.IsNullOrEmpty(mesaj))
+{
+    <div class="alert alert-success mt-3">
+        @mesaj
+    </div>
+}
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +53,7 @@
     </div>
 
     <div class="text-center">
-        <a href="@Url.Action("VatandasBasvuruMerkezi", "Home")" class="buyuk-link">Vatandaş Online Başvuru Merkezi</a>
+        <a href="@Url.Action("Yonlendirme", "Home")" class="buyuk-link">Vatandaş Online Başvuru Merkezi</a>
         <br>
         <br>
         <br>

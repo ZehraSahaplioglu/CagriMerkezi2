@@ -39,20 +39,38 @@ namespace CagriMerkezi2.Controllers
             _sikayetDurumRepository = sikayetDurumRepository;
         }
 
+
         public IActionResult Index()
         {
-            return View();
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
         }
+
 
         public IActionResult GelenSikayet()
         {
-            List<CagriMerkezi> objCagriList = _cagriMerkeziRepository.GetAll().ToList();
-            return View(objCagriList);
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
+            {
+                List<CagriMerkezi> objCagriList = _cagriMerkeziRepository.GetAll().ToList();
+                return View(objCagriList);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Kullanici");
+            }
         }
+
 
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {
-
             IEnumerable<SelectListItem> DurumCagriList = _sikayetDurumRepository.GetAll().Select(b => new SelectListItem
             {
                 Text = b.Ad,
@@ -103,7 +121,9 @@ namespace CagriMerkezi2.Controllers
 
                 return View(cagriVt);
             }
+
         }
+
 
         [HttpGet]
         public IActionResult GetDepartmentsByBirimId(int birimId)
@@ -117,6 +137,7 @@ namespace CagriMerkezi2.Controllers
 
             return Json(depCagriList);
         }
+
 
         [HttpPost]
         public IActionResult EkleGuncelle(CagriMerkezi? cagriMerkezi, IFormFile? file, int? BirimId, int? DepId, int? DurumId)
@@ -135,7 +156,6 @@ namespace CagriMerkezi2.Controllers
                     cagriMerkezi.ResimUrl = @"\img\" + file.FileName;
                 }
 
-                
                 
                 if (cagriMerkezi.Id == 0)
                 {
@@ -161,6 +181,10 @@ namespace CagriMerkezi2.Controllers
 
                         _sikayetRepository.Ekle(yeniSikayet);
                         _sikayetRepository.Kaydet();
+
+                        //burada şikayet oluşturuldu, başvuru kodu mesajı versin
+                        // TempData kullanarak mesajı taşı
+                        TempData["Mesaj"] = $"Şikayet oluşturulmuştur. Başvuru kodunuz: {cagriMerkezi.BasvuruKodu}";
                         return RedirectToAction("Index", "Sikayet");
                     }
                     else
@@ -168,67 +192,70 @@ namespace CagriMerkezi2.Controllers
                         // Eğer BirimId ve DepId değerleri yoksa CagriMerkezi tablosuna ekleyin
                         _cagriMerkeziRepository.Ekle(cagriMerkezi);
                         _cagriMerkeziRepository.Kaydet();
-                        return RedirectToAction("GelenSikayet", "CagriMerkezi");
+
+                        //burada şikayet oluşturuldu, başvuru kodu mesajı verilip home indexe gitsin
+                        // TempData kullanarak mesajı taşı
+                        TempData["Mesaj"] = $"Çağrı merkezine şikayet başvurunuz alınmıştır. Başvuru kodunuz: {cagriMerkezi.BasvuruKodu}";
+                        return RedirectToAction("Index", "Home");
                     }
                 }
-
-                
                 
             }
-                if (BirimId.HasValue && DepId.HasValue)
-                {
-                    string wwwRootPath = _webHostEnvironment.WebRootPath;
-                    string cagriPath = Path.Combine(wwwRootPath, @"img");
+            if (BirimId.HasValue && DepId.HasValue)
+            {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                string cagriPath = Path.Combine(wwwRootPath, @"img");
 
-                    if (file != null)
+                if (file != null)
+                {
+                    using (var fileStream = new FileStream(Path.Combine(cagriPath, file.FileName), FileMode.Create))
                     {
-                        using (var fileStream = new FileStream(Path.Combine(cagriPath, file.FileName), FileMode.Create))
-                        {
-                            file.CopyTo(fileStream);
-                        }
-                        cagriMerkezi.ResimUrl = @"\img\" + file.FileName;
+                        file.CopyTo(fileStream);
                     }
+                    cagriMerkezi.ResimUrl = @"\img\" + file.FileName;
+                }
 
                 Sikayet yeniSikayet = new Sikayet
-                    {
-                        Ad = cagriMerkezi.Ad,
-                        Soyad = cagriMerkezi.Soyad,
-                        TC = cagriMerkezi.TC,
-                        Adres = cagriMerkezi.Adres,
-                        TelNo = cagriMerkezi.TelNo,
-                        Aciklama = cagriMerkezi.Aciklama,
-                        BasvuruKodu = cagriMerkezi.BasvuruKodu,
-                        ResimUrl = cagriMerkezi.ResimUrl,
-                        DurumId = DurumId.Value,
-                        BirimId = BirimId.Value,
-                        DepId = DepId.Value
-                    };
-
-                    _sikayetRepository.Ekle(yeniSikayet);
-                    _sikayetRepository.Kaydet();
-
-                    _cagriMerkeziRepository.Detach(cagriMerkezi);
-
-                    var silinecekCagriMerkezi = _cagriMerkeziRepository.Get(u => u.Id == cagriMerkezi.Id);
-
-                    if (silinecekCagriMerkezi != null)
-                    {
-                        _cagriMerkeziRepository.Sil(silinecekCagriMerkezi);
-                        _cagriMerkeziRepository.Kaydet();
-                    }
-
-                    return RedirectToAction("Index", "Sikayet");
-                }
-
-                else
                 {
-                    // Eğer BirimId ve DepId değerleri yoksa CagriMerkezi tablosunu güncelleyin
-                    _cagriMerkeziRepository.Guncelle(cagriMerkezi);
+                    Ad = cagriMerkezi.Ad,
+                    Soyad = cagriMerkezi.Soyad,
+                    TC = cagriMerkezi.TC,
+                    Adres = cagriMerkezi.Adres,
+                    TelNo = cagriMerkezi.TelNo,
+                    Aciklama = cagriMerkezi.Aciklama,
+                    BasvuruKodu = cagriMerkezi.BasvuruKodu,
+                    ResimUrl = cagriMerkezi.ResimUrl,
+                    DurumId = DurumId.Value,
+                    BirimId = BirimId.Value,
+                    DepId = DepId.Value
+                };
+
+                _sikayetRepository.Ekle(yeniSikayet);
+                _sikayetRepository.Kaydet();
+
+                _cagriMerkeziRepository.Detach(cagriMerkezi);
+
+                var silinecekCagriMerkezi = _cagriMerkeziRepository.Get(u => u.Id == cagriMerkezi.Id);
+
+                if (silinecekCagriMerkezi != null)
+                {
+                    _cagriMerkeziRepository.Sil(silinecekCagriMerkezi);
                     _cagriMerkeziRepository.Kaydet();
-                    return RedirectToAction("GelenSikayet", "CagriMerkezi");
                 }
+
+                return RedirectToAction("Index", "Sikayet");
+            }
+
+            else
+            {
+                // Eğer BirimId ve DepId değerleri yoksa CagriMerkezi tablosunu güncelleyin
+                _cagriMerkeziRepository.Guncelle(cagriMerkezi);
+                _cagriMerkeziRepository.Kaydet();
+                return RedirectToAction("GelenSikayet", "CagriMerkezi");
+            }
                 
         }
+
 
         // başvuru sorgulada kullanılacak olan uiq kod oluşturulması
         private string GenerateUniqueCode()
@@ -240,16 +267,24 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Sil(int? id)
         {
-            if (id == null || id == 0)
+            string yetki = HttpContext.Session.GetString("Yetki");
+            if (HttpContext.Session.GetString("GirisKontrol") == "ok" || yetki == "admin" || yetki == "user")
             {
-                return NotFound();
+                if (id == null || id == 0)
+                {
+                    return NotFound();
+                }
+                CagriMerkezi? cagriVt = _cagriMerkeziRepository.Get(u => u.Id == id);
+                if (cagriVt == null)
+                {
+                    return NotFound();
+                }
+                return View(cagriVt);
             }
-            CagriMerkezi? cagriVt = _cagriMerkeziRepository.Get(u => u.Id == id);
-            if (cagriVt == null)
+            else
             {
-                return NotFound();
+                return RedirectToAction("Login", "Kullanici");
             }
-            return View(cagriVt);
         }
 
         [HttpPost, ActionName("Sil")]
