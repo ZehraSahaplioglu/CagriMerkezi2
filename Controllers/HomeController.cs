@@ -15,20 +15,32 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult Index()
         {
+            string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             return View();
         }
 
         public IActionResult Yonlendirme()
         {
+            string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             return View();
         }
 
         public IActionResult Iletisim() {
+            string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             return View();
         }
 
         public IActionResult SSH()
         {
+            string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             return View();
         }
 
