@@ -77,6 +77,9 @@ namespace CagriMerkezi2.Controllers
 
         public IActionResult EkleGuncelle(int? id, int? selectedBirimId)
         {
+            string yetki = HttpContext.Session.GetString("Yetki");
+            ViewBag.Yetki = yetki;
+
             IEnumerable<SelectListItem> DurumCagriList = _sikayetDurumRepository.GetAll().Select(b => new SelectListItem
             {
                 Text = b.Ad,
@@ -148,6 +151,7 @@ namespace CagriMerkezi2.Controllers
         [HttpPost]
         public IActionResult EkleGuncelle(CagriMerkezi? cagriMerkezi, IFormFile? file, int? BirimId, int? DepId, int? DurumId)
         {
+
             if (!ModelState.IsValid)
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath;
